@@ -1,0 +1,189 @@
+/* ===== ANVA responsive layer (loaded after anva.css) ===== */
+html{-webkit-text-size-adjust:100%}body{overflow-x:hidden}img,svg{max-width:100%}
+button,a,select,summary{touch-action:manipulation}
+
+/* Background: ONE fixed layer (sharp, never stretched over a tall page; works on iOS) */
+.home,.auth,.adm{background-image:none!important;position:relative;min-height:100vh;min-height:100dvh}
+.home::before,.auth::before,.adm::before{content:"";position:fixed;inset:0;z-index:-1;background:#3a363b url(/assets/processed/53.webp) center/cover no-repeat}
+.home{overflow-x:clip}
+
+/* icons */
+.field .ic{display:grid;place-items:center;width:26px;flex:none;color:#3b373c}.eye{display:grid;place-items:center;color:#3b373c;padding:6px}
+.icons button,.icons a{display:inline-grid;place-items:center;min-width:40px;min-height:40px}
+.heart{display:grid;place-items:center;width:44px;height:44px;margin:-6px -6px 0 0}.heart.on{color:#c2185b}
+.order button{display:grid;place-items:center;width:44px;height:44px}
+.adm-side nav a span{display:grid;place-items:center}.out{display:flex;gap:10px;align-items:center}
+.cline{display:flex;align-items:center;gap:8px}.soc{display:flex;gap:16px;flex-wrap:wrap;align-items:center}.soc a{display:inline-flex}
+.tr-box{grid-column:1/-1;border:1px dashed var(--steel);border-radius:18px;padding:10px 14px}.tr-box summary{cursor:pointer;font-size:14px}.tr-box .grid{margin-top:12px}
+.box{overflow-x:auto}
+
+/* desktop defaults for the new header/hero wrappers */
+.burger,.lg-sel,.csel-mob{display:none}.h-art{display:contents}
+
+/* editorial portrait blends into the page instead of a hard rectangle */
+.about img{-webkit-mask-image:radial-gradient(ellipse 78% 88% at 50% 42%,#000 58%,transparent 100%);mask-image:radial-gradient(ellipse 78% 88% at 50% 42%,#000 58%,transparent 100%)}
+
+/* ---------- LOGIN (all sizes): logo in the flow, language switch above, panel above decorations ---------- */
+.auth{overflow:hidden;gap:0}
+.auth>img.auth-logo{position:relative;z-index:1;width:min(64%,300px);margin:0 auto -6px;pointer-events:none}
+.auth-lang{position:static;align-self:flex-end;margin:0 0 2px;z-index:3}
+.auth-panel{position:relative;z-index:2}
+.auth-ring{top:250px;right:-14%;width:min(46%,260px)}
+
+/* ---------- tablets ---------- */
+@media (max-width:900px){
+  .home section,.home footer{padding-left:16px;padding-right:16px}
+  .feat{grid-template-columns:1fr!important;gap:14px;padding:16px!important}
+  .stage{order:1;min-height:260px}.thumbs{order:2;flex-direction:row!important;overflow-x:auto;gap:8px}.thumbs button{width:64px;flex:none}.info{order:3}
+  .stage img{max-height:320px}
+}
+
+/* ---------- phones ---------- */
+@media (max-width:760px){
+  /* header: burger menu + compact icons */
+  .nav{position:sticky;top:0;z-index:50;flex-wrap:nowrap;align-items:center;padding:calc(8px + env(safe-area-inset-top)) 12px 8px;background:rgba(28,24,29,.62);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.18)}
+  .burger{display:grid;place-items:center;width:44px;height:44px;border:1px solid var(--line);border-radius:50%;background:rgba(255,255,255,.14);color:#fff}
+  .pill{display:none}
+  .pill.open{display:flex;flex-direction:column;gap:2px;position:absolute;left:10px;right:10px;top:100%;margin-top:6px;padding:10px;border-radius:24px;background:rgba(28,24,29,.94);max-height:calc(100dvh - 90px);overflow:auto}
+  .pill a{padding:14px 16px;font-size:16px;border-radius:14px}
+  .csel-mob{display:block;padding:8px 6px 4px}.csel-mob .csel{display:flex;width:100%;justify-content:space-between;padding:6px 14px}.csel-mob .csel select{max-width:none;flex:1;font-size:16px}
+  .csel-desk,.lg-btns{display:none}
+  .icons{gap:2px}
+  .lg-sel{display:block;appearance:none;-webkit-appearance:none;background:rgba(255,255,255,.14);color:#fff;border:1px solid var(--line);border-radius:999px;padding:0 14px;min-height:40px;font:inherit;font-size:14px;margin-right:4px}
+  .lg-sel option{color:#000}
+
+  /* hero: logo -> art -> text card, all in normal flow (nothing overlaps) */
+  .hero{display:flex;flex-direction:column;min-height:0;padding-top:4px;padding-bottom:6px}
+  .hero .logo{order:1;position:static;width:min(60%,230px);margin:0 auto;display:block}
+  .h-art{order:2;display:block;position:relative;width:100%;aspect-ratio:1/1.02;margin-top:-4px}
+  .h-rib{position:absolute;left:50%;right:auto;transform:translateX(-50%);bottom:0;width:122%;max-width:none}
+  .h-ring{position:absolute;left:50%;right:auto;transform:translateX(-50%);top:2%;width:74%}
+  .gem{position:absolute;width:34px}.gem.a{left:3%;right:auto;top:10%}.gem.b{right:3%;left:auto;top:24%;width:40px}.gem.c{right:14%;left:auto;top:auto;bottom:4%;width:46px}
+  .hero .copy{order:3;grid-column:auto;position:relative;z-index:2;margin-top:8px;padding:22px 20px;border-radius:26px;background:rgba(24,20,25,.55);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);text-align:center;color:#fff;border:1px solid rgba(255,255,255,.2)}
+  .hero h1{font-size:28px;line-height:1.15}.hero p{max-width:none;margin:0 auto 18px;font-size:15px}
+  .hero .btn-dark{width:100%}.scroll{display:none}
+
+  .home-section-head{margin-bottom:16px!important}.home-section-head h2,.home-featured-intro h2{font-size:29px}.home-section-head p{font-size:12px;line-height:1.5}.cats{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:0!important}.cat{aspect-ratio:.9/1;border-radius:20px;font-size:11.5px;padding:10px 5px;text-align:center;line-height:1.2}.cat img{width:88%;height:68%}.cat span{font-size:11.5px}.cat .arr{display:none}.home-featured-intro{margin-top:34px!important;margin-bottom:14px!important}
+  .about{grid-template-columns:1fr;margin-top:34px!important;text-align:left}.about img{max-height:380px}
+  .banner{grid-template-columns:1fr;padding:22px 18px!important;border-radius:24px;text-align:center}.banner h2{font-size:28px}.banner img{max-height:150px}
+  .foot{grid-template-columns:1fr 1fr!important;gap:18px;padding-top:36px!important}
+  .foot>img{grid-column:1/-1;width:120px}.foot>div:nth-of-type(3),.foot form{grid-column:1/-1}
+  .foot form{flex-direction:column}.foot input,.foot .btn-dark{width:100%}
+  .btn-dark,.btn-light{min-height:48px}
+  .mdl-back{place-items:end center;padding:6px}.mdl{max-height:94vh;max-height:94dvh;padding:16px;border-radius:24px}
+
+  /* login */
+  .auth{padding:max(10px,env(safe-area-inset-top)) 12px 28px}.auth-panel{padding:20px 14px 24px;border-radius:28px}
+  .field{height:54px;padding:0 14px}.row{flex-wrap:wrap}
+  .auth-ribbon.l{left:-30%;top:3%;width:80%}.auth-ribbon.r{right:-40%;bottom:2%;width:100%}
+
+  /* admin */
+  .adm{display:block}
+  .adm-main{padding:12px 10px 40px}.box{padding:14px;border-radius:22px}
+  .adm-side{position:sticky;top:0;z-index:30;flex-direction:row;overflow-x:auto;align-items:center;padding:8px 10px;gap:8px;height:auto}
+  .adm-side nav{flex-wrap:nowrap;flex-direction:row}.adm-side nav a{white-space:nowrap;padding:9px 12px;font-size:14px}.adm-side img{width:64px;flex:none}.out{white-space:nowrap}
+  .grid{grid-template-columns:1fr}.grid .wide,.tr-box{grid-column:auto}
+  .acts .btn-dark,.acts .btn-light{flex:1;min-width:120px}
+  .stats strong{font-size:26px}.bars div{grid-template-columns:80px 1fr 34px}
+  td{padding:8px 6px}
+}
+@media (max-width:360px){.cats{grid-template-columns:repeat(2,1fr)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+/* language buttons readable on any background */
+.icons .lg{background:rgba(20,18,22,.38);color:#fff;border-color:rgba(255,255,255,.45)}.icons .lg.on{background:#fff;color:var(--ink)}
+/* ==========================================================
+   ANVA LUXURY — subtle floating sparkle particles + adaptive
+   text contrast over the existing silk background.
+   Decorative only: no changes to routes, forms or Supabase.
+   ========================================================== */
+.home.grid-page,
+.home.account-page,
+.home:not(.grid-page):not(.account-page) {
+  isolation: isolate;
+}
+
+/* Fine, slow-moving light particles. Kept intentionally subtle. */
+.home::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: .34;
+  mix-blend-mode: screen;
+  background-image:
+    radial-gradient(1.5px 1.5px at 8% 18%, rgba(255,255,255,.95) 45%, transparent 100%),
+    radial-gradient(2px 2px at 21% 73%, rgba(255,255,255,.82) 45%, transparent 100%),
+    radial-gradient(1px 1px at 37% 42%, rgba(255,255,255,.9) 45%, transparent 100%),
+    radial-gradient(1.7px 1.7px at 54% 15%, rgba(255,255,255,.9) 45%, transparent 100%),
+    radial-gradient(1.2px 1.2px at 68% 66%, rgba(255,255,255,.9) 45%, transparent 100%),
+    radial-gradient(2px 2px at 83% 31%, rgba(255,255,255,.88) 45%, transparent 100%),
+    radial-gradient(1.3px 1.3px at 94% 82%, rgba(255,255,255,.9) 45%, transparent 100%);
+  background-size: 100% 100%;
+  animation: anvaParticlesDrift 24s ease-in-out infinite alternate,
+             anvaParticlesTwinkle 5.5s ease-in-out infinite;
+}
+
+/* Keep page content above particles without changing fixed modal/toast positioning. */
+.home > .nav,
+.home > .hero,
+.home > section,
+.home > footer,
+.home > .catalog-shell,
+.home > .account-shell,
+.home > .grid-nav,
+.home > .account-nav {
+  position: relative;
+  z-index: 1;
+}
+.home .nav { z-index: 30; }
+
+@keyframes anvaParticlesDrift {
+  0% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, -9px, 0); }
+  100% { transform: translate3d(0, 7px, 0); }
+}
+@keyframes anvaParticlesTwinkle {
+  0%, 100% { opacity: .2; }
+  50% { opacity: .42; }
+}
+
+/* Automatic contrast: white text becomes dark on bright pixels and
+   stays light on dark pixels. Applied only to copy over the backdrop. */
+.home .hero .copy h1,
+.home .hero .copy > p,
+.home .hero .copy .scroll,
+.home .home-section-head h2,
+.home .home-section-head p,
+.home .home-section-head .home-kicker,
+.home .home-featured-intro h2,
+.home .home-featured-intro p,
+.home .home-featured-intro .home-kicker,
+.home .about > div > h2,
+.home .about > div > p {
+  color: #fff;
+  mix-blend-mode: difference;
+  text-shadow: none;
+}
+
+/* Never blend text inside product cards, glass panels, forms or controls. */
+.home .glass,
+.home .catalog-card,
+.home .product-card,
+.home .account-shell,
+.home .account-overview,
+.home .account-panel,
+.home input,
+.home button,
+.home a {
+  mix-blend-mode: normal;
+}
+
+@media (max-width: 760px) {
+  .home::after { opacity: .25; }
+  .home .hero .copy h1 { text-shadow: 0 1px 10px rgba(0,0,0,.12); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home::after { animation: none; opacity: .22; }
+}

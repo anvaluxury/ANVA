@@ -1,0 +1,937 @@
+[
+ {
+  "n": 1,
+  "name": "Алмазная корона на зелёном фоне.png",
+  "w": 1536,
+  "h": 1024,
+  "mode": "RGB",
+  "green": 1.0,
+  "mean_edge": [
+   8.0,
+   249.0,
+   13.0
+  ],
+  "processing": "chroma-key",
+  "bg_removed": 0.62,
+  "transparent": true,
+  "green_residue": 0.0001
+ },
+ {
+  "n": 2,
+  "name": "Алмазная подвеска с сияющим узором.png",
+  "w": 1672,
+  "h": 941,
+  "mode": "RGB",
+  "green": 1.0,
+  "mean_edge": [
+   3.0,
+   250.0,
+   8.0
+  ],
+  "processing": "chroma-key",
+  "bg_removed": 0.87,
+  "transparent": true,
+  "green_residue": 0.0
+ },
+ {
+  "n": 3,
+  "name": "Бриллиант с радужным сиянием.png",
+  "w": 1536,
+  "h": 1024,
+  "mode": "RGBA",
+  "green": 0.0,
+  "mean_edge": [
+   18.0,
+   18.0,
+   19.0
+  ],
+  "processing": "native-alpha",
+  "alpha_min": 0,
+  "transparent": true,
+  "green_residue": 0.0
+ },
+ {
+  "n": 4,
+  "name": "Бриллиантовое кольцо на зелёном фоне.png",
+  "w": 1024,
+  "h": 1536,
+  "mode": "RGB",
+  "green": 1.0,
+  "mean_edge": [
+   3.0,
+   249.0,
+   16.0
+  ],
+  "processing": "chroma-key",
+  "bg_removed": 0.79,
+  "transparent": true,
+  "green_residue": 0.0
+ },
+ {
+  "n": 5,
+  "name": "Бриллиантовый браслет-бесконечность на зелёном фоне.png",
+  "w": 1230,
+  "h": 1278,
+  "mode": "RGB",
+  "green": 1.0,
+  "mean_edge": [
+   4.0,
+   249.0,
+   16.0
+  ],
+  "processing": "chroma-key",
+  "bg_removed": 0.79,
+  "transparent": true,
+  "green_residue": 0.0001
+ },
+ {
+  "n": 6,
+  "name": "Бриллиантовый теннисный браслет на зелёном фоне.png",
+  "w": 1536,
+  "h": 1024,
+  "mode": "RGB",
+  "green": 1.0,
+  "mean_edge": [
+   3.0,
+   249.0,
+   6.0
+  ],
+  "processing": "chroma-key",
+  "bg_removed": 0.77,
+  "transparent": true,
+  "green_residue": 0.0
+ },
+ {
+  "n": 7,
+  "name": "Бриллиантовый теннисный браслет на зелёном фоне2.png",
+  "w": 1024,
+  "h": 1536,
+  "mode": "RGB",
+  "green": 1.0,
+  "mean_edge": [
+   3.0,
+   249.0,
+   14.0
+  ],
+  "processing": "chroma-key",
+  "bg_removed": 0.86,
+  "transparent": true,
+  "green_residue": 0.0
+ },
+ {
+  "n": 8,
+  "name": "Гранёный бриллиант с радужными бликами.png",
+  "w": 1536,
+  "h": 1024,
+  "mode": "RGBA",
+  "green": 0.0,
+  "mean_edge": [
+   12.0,
+   11.0,
+   13.0
+  ],
+  "processing": "native-alpha",
+  "alpha_min": 0,
+  "transparent": true,
+  "green_residue": 0.0
+ },
+ {
+  "n": 9,
+  "name": "Гранёный бриллиант с радужными бликами3.png",
+  "w": 1536,
+  "h": 1024,
+  "mode": "RGBA",
+  "green": 0.0,
+  "mean_edge": [
+   23.0,
+   23.0,
+   25.0
+  ],
+  "processing": "native-alpha",
+  "alpha_min": 0,
+  "transparent": true,
+  "green_residue": 0.0
+ },
+ {
+  "n": 10,
+  "name": "Неоновая зелень с сияющей звездой.png",
+  "w": 1536,
+  "h": 1024,
+  "mode": "RGB",
+  "green": 1.0,
+  "mean_edge": [
+   2.0,
+   249.0,
+   3.0
+  ],
+  "processing": "chroma-key",
+  "bg_removed": 0.99,
+  "transparent": true,
+  "green_residue": 0.0
+ },
+ {
+  "n": 11,
+  "name": "Роскошная табличка «Новая коллекция».png",
+  "w": 1672,
+  "h": 941,
+  "mode": "RGB",
+  "green": 1.0,
+  "mean_edge": [
+   3.0,
+   249.0,
+   7.0
+  ],
+  "processing": "chroma-key",
+  "bg_removed": 0.66,
+  "transparent": true,
+  "green_residue": 0.0001
+ },
+ {
+  "n": 12,
+  "name": "Роскошная хромированная лента-завиток.png",
+  "w": 1536,
+  "h": 1024,
+  "mode": "RGBA",
+  "green": 0.0,
+  "mean_edge": [
+   37.0,
+   34.0,
+   34.0
+  ],
+  "processing": "native-alpha",
+  "alpha_min": 0,
+  "transparent": true,
+  "green_residue": 0.0
+ },
+ {
+  "n": 13,
+  "name": "Роскошная хромированная монограмма AV с бриллиантом.png",
+  "w": 1536,
+  "h": 1024,
+  "mode": "RGBA",
+  "green": 0.0,
+  "mean_edge": [
+   23.0,
+   21.0,
+   22.0
+  ],
+  "processing": "native-alpha",
+  "alpha_min": 0,
+  "transparent": true,
+  "green_residue": 0.0
+ },
+ {
+  "n": 14,
+  "name": "Роскошное бриллиантовое колье с подвеской.png",
+  "w": 1536,
+  "h": 1024,
+  "mode": "RGB",
+  "green": 0.98,
+  "mean_edge": [
+   5.0,
+   248.0,
+   8.0
+  ],
+  "processing": "chroma-key",
+  "bg_removed": 0.89,
+  "transparent": true,
+  "green_residue": 0.0
+ },
+ {
+  "n": 15,
+  "name": "Роскошное бриллиантовое кольцо на зелёном фоне.png",
+  "w": 1312,
+  "h": 1199,
+  "mode": "RGB",
+  "green": 0.99,
+  "mean_edge": [
+   4.0,
+   249.0,
+   8.0
+  ],
+  "processing": "chroma-key",
+  "bg_removed": 0.62,
+  "transparent": true,
+  "green_residue": 0.0
+ },
+ {
+  "n": 16,
+  "name": "Роскошное бриллиантовое кольцо-солитер.png",
+  "w": 1312,
+  "h": 1199,
+  "mode": "RGBA",
+  "green": 0.0,
+  "mean_edge": [
+   2.0,
+   2.0,
+   2.0
+  ],
+  "processing": "native-alpha",
+  "alpha_min": 0,
+  "transparent": true,
+  "green_residue": 0.0
+ },
+ {
+  "n": 17,
+  "name": "Роскошное кольцо с бриллиантом и паве.png",
+  "w": 1536,
+  "h": 1024,
+  "mode": "RGBA",
+  "green": 0.0,
+  "mean_edge": [
+   27.0,
+   26.0,
+   27.0
+  ],
+  "processing": "native-alpha",
+  "alpha_min": 0,
+  "transparent": true,
+  "green_residue": 0.0
+ },
+ {
+  "n": 18,
+  "name": "Роскошное кольцо с бриллиантом.png",
+  "w": 1536,
+  "h": 1024,
+  "mode": "RGB",
+  "green": 1.0,
+  "mean_edge": [
+   4.0,
+   249.0,
+   14.0
+  ],
+  "processing": "chroma-key",
+  "bg_removed": 0.55,
+  "transparent": true,
+  "green_residue": 0.0007
+ },
+ {
+  "n": 19,
+  "name": "Роскошное кольцо с бриллиантом3.png",
+  "w": 1536,
+  "h": 1024,
+  "mode": "RGBA",
+  "green": 0.0,
+  "mean_edge": [
+   27.0,
+   26.0,
+   26.0
+  ],
+  "processing": "native-alpha",
+  "alpha_min": 0,
+  "transparent": true,
+  "green_residue": 0.0
+ },
+ {
+  "n": 20,
+  "name": "Роскошные бриллиантовые серьги на зелёном фоне.png",
+  "w": 1536,
+  "h": 1024,
+  "mode": "RGB",
+  "green": 1.0,
+  "mean_edge": [
+   2.0,
+   249.0,
+   12.0
+  ],
+  "processing": "chroma-key",
+  "bg_removed": 0.8,
+  "transparent": true,
+  "green_residue": 0.0
+ },
+ {
+  "n": 21,
+  "name": "Роскошный бриллиантовый браслет на зелёном фоне.png",
+  "w": 1230,
+  "h": 1278,
+  "mode": "RGB",
+  "green": 1.0,
+  "mean_edge": [
+   3.0,
+   249.0,
+   9.0
+  ],
+  "processing": "chroma-key",
+  "bg_removed": 0.78,
+  "transparent": true,
+  "green_residue": 0.0004
+ },
+ {
+  "n": 22,
+  "name": "Роскошный бриллиантовый теннисный браслет.png",
+  "w": 1942,
+  "h": 809,
+  "mode": "RGBA",
+  "green": 0.0,
+  "mean_edge": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "processing": "native-alpha",
+  "alpha_min": 0,
+  "transparent": true,
+  "green_residue": 0.0
+ },
+ {
+  "n": 23,
+  "name": "Сверкающая звезда на зелёном фоне.png",
+  "w": 1536,
+  "h": 1024,
+  "mode": "RGB",
+  "green": 1.0,
+  "mean_edge": [
+   2.0,
+   249.0,
+   3.0
+  ],
+  "processing": "chroma-key",
+  "bg_removed": 0.98,
+  "transparent": true,
+  "green_residue": 0.0
+ },
+ {
+  "n": 24,
+  "name": "Сверкающий бриллиант на зелёном фоне.png",
+  "w": 1536,
+  "h": 1024,
+  "mode": "RGBA",
+  "green": 0.0,
+  "mean_edge": [
+   2.0,
+   2.0,
+   2.0
+  ],
+  "processing": "native-alpha",
+  "alpha_min": 0,
+  "transparent": true,
+  "green_residue": 0.0
+ },
+ {
+  "n": 25,
+  "name": "Сверкающий бриллиант на зелёном фоне2.png",
+  "w": 1536,
+  "h": 1024,
+  "mode": "RGB",
+  "green": 1.0,
+  "mean_edge": [
+   3.0,
+   250.0,
+   3.0
+  ],
+  "processing": "chroma-key",
+  "bg_removed": 0.67,
+  "transparent": true,
+  "green_residue": 0.0
+ },
+ {
+  "n": 26,
+  "name": "Сверкающий бриллиант на зелёном фоне3.png",
+  "w": 1536,
+  "h": 1024,
+  "mode": "RGB",
+  "green": 1.0,
+  "mean_edge": [
+   2.0,
+   249.0,
+   3.0
+  ],
+  "processing": "chroma-key",
+  "bg_removed": 0.94,
+  "transparent": true,
+  "green_residue": 0.0
+ },
+ {
+  "n": 27,
+  "name": "Сверкающий бриллиантовый браслет на неоновом фоне.png",
+  "w": 1230,
+  "h": 1278,
+  "mode": "RGB",
+  "green": 1.0,
+  "mean_edge": [
+   3.0,
+   249.0,
+   6.0
+  ],
+  "processing": "chroma-key",
+  "bg_removed": 0.79,
+  "transparent": true,
+  "green_residue": 0.0003
+ },
+ {
+  "n": 28,
+  "name": "Сверкающий теннисный браслет на зелёном фоне.png",
+  "w": 1230,
+  "h": 1278,
+  "mode": "RGB",
+  "green": 1.0,
+  "mean_edge": [
+   3.0,
+   249.0,
+   4.0
+  ],
+  "processing": "chroma-key",
+  "bg_removed": 0.78,
+  "transparent": true,
+  "green_residue": 0.0003
+ },
+ {
+  "n": 29,
+  "name": "Симметричные бриллиантовые серьги на зелёном фоне.png",
+  "w": 1536,
+  "h": 1024,
+  "mode": "RGB",
+  "green": 1.0,
+  "mean_edge": [
+   3.0,
+   250.0,
+   7.0
+  ],
+  "processing": "chroma-key",
+  "bg_removed": 0.8,
+  "transparent": true,
+  "green_residue": 0.0
+ },
+ {
+  "n": 30,
+  "name": "Сияющий хромированный звездный блик.png",
+  "w": 1536,
+  "h": 1024,
+  "mode": "RGBA",
+  "green": 0.0,
+  "mean_edge": [
+   7.0,
+   7.0,
+   8.0
+  ],
+  "processing": "native-alpha",
+  "alpha_min": 0,
+  "transparent": true,
+  "green_residue": 0.0
+ },
+ {
+  "n": 31,
+  "name": "Фацетированный бриллиант на зелёном фоне.png",
+  "w": 1536,
+  "h": 1024,
+  "mode": "RGB",
+  "green": 1.0,
+  "mean_edge": [
+   3.0,
+   250.0,
+   4.0
+  ],
+  "processing": "chroma-key",
+  "bg_removed": 0.59,
+  "transparent": true,
+  "green_residue": 0.0
+ },
+ {
+  "n": 32,
+  "name": "Фотореалистичный бриллиант с радужными бликами.png",
+  "w": 1536,
+  "h": 1024,
+  "mode": "RGBA",
+  "green": 0.0,
+  "mean_edge": [
+   4.0,
+   4.0,
+   4.0
+  ],
+  "processing": "native-alpha",
+  "alpha_min": 0,
+  "transparent": true,
+  "green_residue": 0.0
+ },
+ {
+  "n": 33,
+  "name": "Футуристический хромированный всплеск на чёрном фоне.png",
+  "w": 1672,
+  "h": 941,
+  "mode": "RGBA",
+  "green": 0.0,
+  "mean_edge": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "processing": "native-alpha",
+  "alpha_min": 0,
+  "transparent": true,
+  "green_residue": 0.0
+ },
+ {
+  "n": 34,
+  "name": "Хромированная волна из жидкого металла.png",
+  "w": 2172,
+  "h": 724,
+  "mode": "RGBA",
+  "green": 0.0,
+  "mean_edge": [
+   13.0,
+   12.0,
+   12.0
+  ],
+  "processing": "native-alpha",
+  "alpha_min": 0,
+  "transparent": true,
+  "green_residue": 0.0
+ },
+ {
+  "n": 35,
+  "name": "Хромированная вспышка звезды.png",
+  "w": 1536,
+  "h": 1024,
+  "mode": "RGBA",
+  "green": 0.0,
+  "mean_edge": [
+   11.0,
+   11.0,
+   13.0
+  ],
+  "processing": "native-alpha",
+  "alpha_min": 0,
+  "transparent": true,
+  "green_residue": 0.0
+ },
+ {
+  "n": 36,
+  "name": "Хромированная лента в зелёном сиянии.png",
+  "w": 1536,
+  "h": 1024,
+  "mode": "RGB",
+  "green": 0.89,
+  "mean_edge": [
+   17.0,
+   235.0,
+   17.0
+  ],
+  "processing": "chroma-key",
+  "bg_removed": 0.78,
+  "transparent": true,
+  "green_residue": 0.0
+ },
+ {
+  "n": 37,
+  "name": "Хромированная металлическая волна.png",
+  "w": 1672,
+  "h": 941,
+  "mode": "RGBA",
+  "green": 0.0,
+  "mean_edge": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "processing": "native-alpha",
+  "alpha_min": 0,
+  "transparent": true,
+  "green_residue": 0.0
+ },
+ {
+  "n": 38,
+  "name": "Хромированная петля на зелёном фоне.png",
+  "w": 1536,
+  "h": 1024,
+  "mode": "RGB",
+  "green": 1.0,
+  "mean_edge": [
+   3.0,
+   249.0,
+   8.0
+  ],
+  "processing": "chroma-key",
+  "bg_removed": 0.67,
+  "transparent": true,
+  "green_residue": 0.0
+ },
+ {
+  "n": 39,
+  "name": "Хромированный всплеск жидкого металла.png",
+  "w": 1672,
+  "h": 941,
+  "mode": "RGBA",
+  "green": 0.0,
+  "mean_edge": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "processing": "native-alpha",
+  "alpha_min": 0,
+  "transparent": true,
+  "green_residue": 0.0
+ },
+ {
+  "n": 40,
+  "name": "Хромированный всплеск жидкого металла3.png",
+  "w": 1536,
+  "h": 1024,
+  "mode": "RGBA",
+  "green": 0.0,
+  "mean_edge": [
+   44.0,
+   44.0,
+   47.0
+  ],
+  "processing": "native-alpha",
+  "alpha_min": 0,
+  "transparent": true,
+  "green_residue": 0.0
+ },
+ {
+  "n": 41,
+  "name": "Хромированный всплеск с каплями、】【.png",
+  "w": 1536,
+  "h": 1024,
+  "mode": "RGBA",
+  "green": 0.0,
+  "mean_edge": [
+   51.0,
+   51.0,
+   54.0
+  ],
+  "processing": "native-alpha",
+  "alpha_min": 0,
+  "transparent": true,
+  "green_residue": 0.0
+ },
+ {
+  "n": 42,
+  "name": "Хромированный логотип ANVA с бриллиантом.png",
+  "w": 1536,
+  "h": 1024,
+  "mode": "RGBA",
+  "green": 0.0,
+  "mean_edge": [
+   31.0,
+   30.0,
+   31.0
+  ],
+  "processing": "native-alpha",
+  "alpha_min": 0,
+  "transparent": true,
+  "green_residue": 0.0
+ },
+ {
+  "n": 43,
+  "name": "Хромированный металлический всплеск с каплями.png",
+  "w": 1536,
+  "h": 1024,
+  "mode": "RGBA",
+  "green": 0.0,
+  "mean_edge": [
+   37.0,
+   38.0,
+   39.0
+  ],
+  "processing": "native-alpha",
+  "alpha_min": 0,
+  "transparent": true,
+  "green_residue": 0.0
+ },
+ {
+  "n": 44,
+  "name": "Хромированный подиум на зелёном фоне.png",
+  "w": 1672,
+  "h": 941,
+  "mode": "RGB",
+  "green": 1.0,
+  "mean_edge": [
+   3.0,
+   249.0,
+   9.0
+  ],
+  "processing": "chroma-key",
+  "bg_removed": 0.5,
+  "transparent": true,
+  "green_residue": 0.0
+ },
+ {
+  "n": 45,
+  "name": "Хромированный подиум с орбитальными лентами-1.png",
+  "w": 1536,
+  "h": 1024,
+  "mode": "RGB",
+  "green": 1.0,
+  "mean_edge": [
+   3.0,
+   250.0,
+   4.0
+  ],
+  "processing": "chroma-key",
+  "bg_removed": 0.68,
+  "transparent": true,
+  "green_residue": 0.0
+ },
+ {
+  "n": 46,
+  "name": "Хромовая волна из переплетённых лент.png",
+  "w": 1923,
+  "h": 818,
+  "mode": "RGBA",
+  "green": 0.0,
+  "mean_edge": [
+   11.0,
+   9.0,
+   10.0
+  ],
+  "processing": "native-alpha",
+  "alpha_min": 0,
+  "transparent": true,
+  "green_residue": 0.0
+ },
+ {
+  "n": 47,
+  "name": "Хромовая лента в форме бесконечности.png",
+  "w": 1536,
+  "h": 1024,
+  "mode": "RGBA",
+  "green": 0.0,
+  "mean_edge": [
+   32.0,
+   30.0,
+   30.0
+  ],
+  "processing": "native-alpha",
+  "alpha_min": 0,
+  "transparent": true,
+  "green_residue": 0.0
+ },
+ {
+  "n": 48,
+  "name": "Хромовая лента на зелёном фоне.png",
+  "w": 1536,
+  "h": 1024,
+  "mode": "RGB",
+  "green": 0.9,
+  "mean_edge": [
+   18.0,
+   240.0,
+   20.0
+  ],
+  "processing": "chroma-key",
+  "bg_removed": 0.75,
+  "transparent": true,
+  "green_residue": 0.0
+ },
+ {
+  "n": 49,
+  "name": "Хромовый орнамент на зелёном фоне.png",
+  "w": 1672,
+  "h": 941,
+  "mode": "RGB",
+  "green": 0.88,
+  "mean_edge": [
+   20.0,
+   234.0,
+   21.0
+  ],
+  "processing": "chroma-key",
+  "bg_removed": 0.67,
+  "transparent": true,
+  "green_residue": 0.0
+ },
+ {
+  "n": 50,
+  "name": "Ադամանդե հավերժության կախազարդ.png",
+  "w": 1024,
+  "h": 1536,
+  "mode": "RGB",
+  "green": 1.0,
+  "mean_edge": [
+   4.0,
+   249.0,
+   13.0
+  ],
+  "processing": "chroma-key",
+  "bg_removed": 0.74,
+  "transparent": true,
+  "green_residue": 0.0
+ },
+ {
+  "n": 51,
+  "name": "Թափանցիկ ֆոնի վրա փայլուն ադամանդ.png",
+  "w": 1292,
+  "h": 1217,
+  "mode": "RGBA",
+  "green": 0.0,
+  "mean_edge": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "processing": "native-alpha",
+  "alpha_min": 0,
+  "transparent": true,
+  "green_residue": 0.0
+ },
+ {
+  "n": 52,
+  "name": "Հմայիչ զարդերով դիմանկար կանաչ ֆոնի վրա.png",
+  "w": 1024,
+  "h": 1536,
+  "mode": "RGBA",
+  "green": 0.0,
+  "mean_edge": [
+   99.0,
+   82.0,
+   75.0
+  ],
+  "processing": "native-alpha",
+  "alpha_min": 0,
+  "transparent": true,
+  "green_residue": 0.0
+ },
+ {
+  "n": 53,
+  "name": "Մետաղական մետաքսե փայլերի ֆոն.png",
+  "w": 1024,
+  "h": 1536,
+  "mode": "RGB",
+  "green": 0.0,
+  "mean_edge": [
+   130.0,
+   123.0,
+   129.0
+  ],
+  "processing": "opaque-kept",
+  "alpha_min": 255,
+  "transparent": false,
+  "green_residue": 0.0
+ },
+ {
+  "n": 54,
+  "name": "Նրբագեղ հեղուկ քրոմե ալիք.png",
+  "w": 1536,
+  "h": 1024,
+  "mode": "RGBA",
+  "green": 0.0,
+  "mean_edge": [
+   22.0,
+   22.0,
+   22.0
+  ],
+  "processing": "native-alpha",
+  "alpha_min": 0,
+  "transparent": true,
+  "green_residue": 0.0
+ },
+ {
+  "n": 55,
+  "name": "Փայլուն քրոմե աղեղաձև հեղուկ մետաղական ժապավեն.png",
+  "w": 1254,
+  "h": 1254,
+  "mode": "RGBA",
+  "green": 0.0,
+  "mean_edge": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "processing": "native-alpha",
+  "alpha_min": 0,
+  "transparent": true,
+  "green_residue": 0.0
+ }
+]

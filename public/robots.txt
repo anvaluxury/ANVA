@@ -1,0 +1,9 @@
+User-agent: *
+Disallow: /*/admin
+Disallow: /*/account
+Disallow: /*/login
+Disallow: /*/favorites
+Allow: /
+
+# Replace with your deployed sitemap function URL (see README):
+Sitemap: https://YOUR-PROJECT.supabase.co/functions/v1/sitemap

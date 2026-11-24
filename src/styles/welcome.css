@@ -1,0 +1,331 @@
+/* ANVA LUXURY — WELCOME EXPERIENCE */
+
+.welcome-screen {
+  min-height: 100vh;
+  min-height: 100dvh;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 55px 24px;
+  background:
+    radial-gradient(ellipse at 50% 35%, #30272e 0%, transparent 55%),
+    linear-gradient(135deg, #100e11, #1c171d 55%, #100e11);
+  color: #eee8e9;
+}
+
+.welcome-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  pointer-events: none;
+  opacity: .16;
+}
+
+.welcome-glow-one {
+  width: 400px;
+  height: 400px;
+  background: #b58b9e;
+  top: -180px;
+  left: -120px;
+}
+
+.welcome-glow-two {
+  width: 350px;
+  height: 350px;
+  background: #8f7181;
+  bottom: -180px;
+  right: -100px;
+}
+
+.welcome-content {
+  width: 100%;
+  max-width: 1000px;
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+
+.welcome-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.welcome-logo {
+  width: 145px;
+  max-height: 90px;
+  object-fit: contain;
+  filter: brightness(1.1);
+}
+
+.welcome-brand-line {
+  width: 55px;
+  height: 1px;
+  background: #bba4ad;
+  margin: 17px 0 12px;
+}
+
+.welcome-brand p {
+  font-size: 9px;
+  letter-spacing: 5px;
+  color: #bdaeb5;
+}
+
+.welcome-heading {
+  margin: 55px 0 45px;
+}
+
+.welcome-heading > span {
+  font-size: 9px;
+  letter-spacing: 5px;
+  color: #bda5b0;
+}
+
+.welcome-heading h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(38px, 6vw, 67px);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: 3px;
+  margin: 22px 0;
+}
+
+.welcome-heading h1 em {
+  font-style: normal;
+  color: #d4b7c3;
+}
+
+.welcome-heading > p {
+  color: #b5a8ae;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 21px;
+  letter-spacing: 2px;
+}
+
+.welcome-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 25px;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.welcome-card {
+  position: relative;
+  min-height: 280px;
+  padding: 35px 25px;
+  border: 1px solid rgba(213, 188, 200, .25);
+  background: linear-gradient(
+    145deg,
+    rgba(255,255,255,.055),
+    rgba(255,255,255,.012)
+  );
+  color: #eee8e9;
+  transition: .4s ease;
+  text-align: center;
+  overflow: hidden;
+}
+
+.welcome-card:hover {
+  transform: translateY(-8px);
+  border-color: #c6a9b7;
+  background: rgba(255,255,255,.075);
+  box-shadow: 0 20px 60px rgba(0,0,0,.25);
+}
+
+.welcome-card-number {
+  position: absolute;
+  top: 18px;
+  right: 20px;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: #9d8993;
+}
+
+.welcome-device {
+  margin: 0 auto 25px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.desktop-device {
+  width: 125px;
+  height: 85px;
+  flex-direction: column;
+}
+
+.desktop-screen {
+  width: 112px;
+  height: 70px;
+  border: 2px solid #bba6b1;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #282029, #161218);
+}
+
+.desktop-screen span,
+.mobile-screen span {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  letter-spacing: 3px;
+}
+
+.desktop-screen small,
+.mobile-screen small {
+  font-size: 6px;
+  letter-spacing: 3px;
+  color: #c3a9b7;
+}
+
+.desktop-base {
+  width: 125px;
+  height: 5px;
+  background: #bba6b1;
+  border-radius: 2px 2px 8px 8px;
+}
+
+.mobile-device {
+  width: 50px;
+  height: 85px;
+  border: 2px solid #bba6b1;
+  border-radius: 10px;
+  padding: 7px 4px;
+  background: #211b22;
+}
+
+.mobile-screen {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #332532, #171219);
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.mobile-screen span {
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+
+.mobile-screen small {
+  font-size: 4px;
+}
+
+.welcome-card-info h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 25px;
+  font-weight: 400;
+  letter-spacing: 4px;
+  margin: 0 0 7px;
+}
+
+.welcome-card-info p {
+  color: #aa9da4;
+  font-size: 11px;
+  letter-spacing: 1px;
+}
+
+.welcome-enter {
+  display: inline-flex;
+  gap: 12px;
+  align-items: center;
+  margin-top: 20px;
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: #d3b7c3;
+}
+
+.welcome-enter b {
+  font-size: 17px;
+  font-weight: 400;
+  transition: transform .3s ease;
+}
+
+.welcome-card:hover .welcome-enter b {
+  transform: translate(4px, -4px);
+}
+
+.welcome-footer {
+  margin-top: 65px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,.12);
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  color: #857780;
+  font-size: 8px;
+  letter-spacing: 2px;
+}
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+  .welcome-screen {
+    padding: 35px 20px;
+  }
+
+  .welcome-logo {
+    width: 115px;
+  }
+
+  .welcome-heading {
+    margin: 40px 0 30px;
+  }
+
+  .welcome-heading h1 {
+    font-size: 42px;
+    letter-spacing: 1px;
+  }
+
+  .welcome-heading > span {
+    font-size: 8px;
+    letter-spacing: 3px;
+  }
+
+  .welcome-heading > p {
+    font-size: 18px;
+  }
+
+  .welcome-options {
+    grid-template-columns: 1fr;
+    gap: 15px;
+    max-width: 370px;
+  }
+
+  .welcome-card {
+    min-height: 225px;
+    padding: 25px 20px;
+  }
+
+  .welcome-device {
+    margin-bottom: 15px;
+  }
+
+  .welcome-footer {
+    margin-top: 35px;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    font-size: 7px;
+  }
+}
+
+@media (max-width: 360px) {
+  .welcome-heading h1 {
+    font-size: 35px;
+  }
+
+  .welcome-card {
+    min-height: 210px;
+  }
+}
