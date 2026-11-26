@@ -5,8 +5,7 @@ import {
   Navigate,
   Route,
   Routes,
-  useParams,
-  useNavigate
+  useParams
 } from 'react-router-dom'
 
 import { DEFAULT_LANG, isLang } from './i18n'
@@ -21,11 +20,11 @@ import Account from './pages/Account'
 
 import { CurrencyProvider } from './lib/currency'
 import { FavoritesProvider } from './lib/favorites'
-import { assets } from './assets'
+import { SiteConfigProvider } from './lib/siteConfig'
 
-import './styles/anva.css'
-import './styles/responsive.css'
-import './styles/welcome.css'
+import './styles/silver.css'
+import './styles/silver-pages.css'
+import './styles/silver-admin.css'
 
 enforceRemember()
 
@@ -59,113 +58,15 @@ const LangGate = () => {
   return isLang(lang) ? <AuthPage lang={lang} /> : <Navigate to={`/${DEFAULT_LANG}/login`} replace />
 }
 
-function WelcomePage() {
-  const navigate = useNavigate()
-
-  const enterStore = (mode: 'desktop' | 'mobile') => {
-    localStorage.setItem('anva-view-mode', mode)
-    document.documentElement.dataset.view = mode
-    navigate(`/${DEFAULT_LANG}`)
-  }
-
-  return (
-    <main className="welcome-screen">
-
-      <div className="welcome-glow welcome-glow-one" />
-      <div className="welcome-glow welcome-glow-two" />
-
-      <div className="welcome-content">
-
-        <div className="welcome-brand">
-          <img
-            src={assets.branding.logo}
-            alt="ANVA LUXURY"
-            className="welcome-logo"
-          />
-          <span className="welcome-brand-line" />
-          <p>THE ART OF ELEGANCE</p>
-        </div>
-
-        <div className="welcome-heading">
-          <span>AN EXCLUSIVE EXPERIENCE</span>
-
-          <h1>
-            WELCOME TO
-            <br />
-            <em>ANVA LUXURY</em>
-          </h1>
-
-          <p>Choose your experience</p>
-        </div>
-
-        <div className="welcome-options">
-
-          <button
-            onClick={() => enterStore('desktop')}
-            className="welcome-card"
-          >
-            <div className="welcome-device desktop-device">
-              <div className="desktop-screen">
-                <span>ANVA</span>
-                <small>LUXURY</small>
-              </div>
-              <div className="desktop-base" />
-            </div>
-
-            <span className="welcome-card-number">01</span>
-
-            <div className="welcome-card-info">
-              <h2>DESKTOP</h2>
-              <p>Explore on a larger screen</p>
-              <span className="welcome-enter">
-                ENTER EXPERIENCE <b>↗</b>
-              </span>
-            </div>
-          </button>
-
-          <button
-            onClick={() => enterStore('mobile')}
-            className="welcome-card"
-          >
-            <div className="welcome-device mobile-device">
-              <div className="mobile-screen">
-                <span>ANVA</span>
-                <small>LUXURY</small>
-              </div>
-            </div>
-
-            <span className="welcome-card-number">02</span>
-
-            <div className="welcome-card-info">
-              <h2>MOBILE</h2>
-              <p>Explore on your mobile device</p>
-              <span className="welcome-enter">
-                ENTER EXPERIENCE <b>↗</b>
-              </span>
-            </div>
-          </button>
-
-        </div>
-
-        <footer className="welcome-footer">
-          <span>ANVA LUXURY</span>
-          <span>TIMELESS BEAUTY · EXCLUSIVE DESIGN</span>
-          <span>EST. 2026</span>
-        </footer>
-
-      </div>
-    </main>
-  )
-}
-
 createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <CurrencyProvider>
       <FavoritesProvider>
+        <SiteConfigProvider>
         <BrowserRouter>
           <Routes>
 
-            <Route path="/" element={<WelcomePage />} />
+            <Route path="/" element={<Navigate to={`/${DEFAULT_LANG}`} replace />} />
 
             <Route path="/:lang/login" element={<LangGate />} />
             <Route path="/:lang/account" element={<AccountGate />} />
@@ -186,6 +87,7 @@ createRoot(document.getElementById('root')!).render(
 
           </Routes>
         </BrowserRouter>
+        </SiteConfigProvider>
       </FavoritesProvider>
     </CurrencyProvider>
   </React.StrictMode>

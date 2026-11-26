@@ -1,12 +1,13 @@
 import { useCallback, useEffect, useState } from 'react'
-import { uploadImage, publicUrl } from '../../lib/auth'
+import { publicUrl } from '../../lib/auth'
+import MediaField from './editor/MediaField'
 import { adminSupabase as supabase } from '../../lib/supabase'
 import { translate } from '../../lib/translate'
 import { uuid } from '../../lib/uuid'
 import type { Ctx } from './Admin'
 const LG = ['hy', 'ru', 'en'] as const
 const blank = { id: '', slug: '', image_path: '', sort_order: 0, is_active: true, names: { hy: '', ru: '', en: '' } as Record<string, string> }
-export default function Categories({ T }: Ctx) {
+export default function Categories({ T, lang }: Ctx) {
   const [rows, setRows] = useState<any[]>([]); const [f, setF] = useState<any>(blank); const [msg, setMsg] = useState(''); const [busy, setBusy] = useState(false)
   const load = useCallback(async () => { const { data } = await supabase.from('categories').select('*,category_translations(lang,name)').order('sort_order'); setRows(data ?? []) }, [])
   useEffect(() => { void load() }, [load])
@@ -24,7 +25,6 @@ export default function Categories({ T }: Ctx) {
     const { error: e2 } = await supabase.from('category_translations').upsert(LG.filter(l => names[l].trim()).map(l => ({ category_id: data.id, lang: l, name: names[l].trim() }))); if (e2) throw e2
     setF(blank)
   })
-  const pick = (file?: File) => file && run(async () => { setF({ ...f, image_path: await uploadImage('category-images', file, f.slug || 'new') }) })
   const del = (r: any) => confirm(T('confirm_del')) && run(async () => { const { error } = await supabase.from('categories').delete().eq('id', r.id); if (error) throw error })
   return <>
     <section className="glass box"><h3>{f.id ? T('edit') : T('new_cat')}</h3>
@@ -33,7 +33,7 @@ export default function Categories({ T }: Ctx) {
         <label>{T('slug')}<input value={f.slug} onChange={e => setF({ ...f, slug: e.target.value.toLowerCase() })} /></label>
         <label>{T('order')}<input type="number" value={f.sort_order} onChange={e => setF({ ...f, sort_order: e.target.value })} /></label>
         <label className="chk"><input type="checkbox" checked={f.is_active} onChange={e => setF({ ...f, is_active: e.target.checked })} />{T('active')}</label>
-        <label>{T('image')}<input type="file" accept="image/jpeg,image/png,image/webp" onChange={e => pick(e.target.files?.[0])} />{f.image_path && <img className="mini" src={publicUrl('category-images', f.image_path)} alt="" />}</label>
+        <MediaField lang={lang} label={T('image')} bucket="category-images" folder={f.slug || 'new'} ratio="4:5" path={f.image_path} onChange={p => setF({ ...f, image_path: p })} />
       </div>
       <div className="acts"><button className="btn-dark" disabled={busy} onClick={save}>{busy ? '…' : T('save')}</button>{f.id && <button className="btn-light" onClick={() => setF(blank)}>{T('cancel')}</button>}<span role="status">{msg}</span></div>
     </section>

@@ -1,4 +1,10 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 // host:true lets you open the dev site from a phone on the same Wi-Fi (http://<computer-ip>:5173)
-export default defineConfig({ plugins: [react()], server: { host: true, port: 5173 }, preview: { host: true } })
+// ffmpeg.wasm spawns its own worker, so it must not be pre-bundled by Vite (used lazily by the admin video trimmer)
+export default defineConfig({
+  plugins: [react()],
+  server: { host: true, port: 5173 },
+  preview: { host: true },
+  optimizeDeps: { exclude: ['@ffmpeg/ffmpeg', '@ffmpeg/util'] },
+})

@@ -1,0 +1,129 @@
+/* ANVA — dark editorial theme (matches the reference video). Logic/data untouched; this file only restyles. Imported last. */
+:root{--ink:#f1f1f3;--pearl:#f1f1f3;--silver:#cfcfd5;--steel:#9a9aa3;--glass:rgba(255,255,255,.05);--line:rgba(255,255,255,.16);--bg:#09090a;--panel:#131315;--panel2:#1b1b1e}
+body{background:var(--bg);color:var(--ink)}
+.home,.auth,.adm,.grid-page{background:var(--bg)!important;background-image:none!important;color:var(--ink)}
+.home::before,.auth::before,.adm::before{background:radial-gradient(120% 70% at 50% 0%,#1c1c20 0%,var(--bg) 62%)!important}
+.glass{background:var(--glass);backdrop-filter:blur(14px);border:1px solid var(--line);box-shadow:0 20px 50px rgba(0,0,0,.5)}
+
+/* header */
+.nav{background:rgba(9,9,10,.82)!important;backdrop-filter:blur(14px);border-bottom:1px solid var(--line);max-width:none;padding:10px max(20px,calc((100% - 1180px)/2))}
+.nav-phone{order:-1;font-size:12px;letter-spacing:.06em;color:var(--silver);text-decoration:none;margin-right:auto}
+.pill{background:none!important;border:0!important;box-shadow:none!important;backdrop-filter:none}
+.pill a{color:var(--silver);border:1px solid transparent}.pill a.on,.pill a:hover{background:#fff;color:#0a0a0b}
+.icons,.icons a,.icons button{color:var(--silver)}.icons .lg{background:none;border-color:var(--line)}.icons .lg.on{background:#fff;color:#0a0a0b}
+.csel{color:var(--silver)}.csel select{color:var(--silver)}.csel select option,.lg-sel option{color:#000}
+
+/* hero */
+.hero{min-height:620px;align-items:center}
+.hero .logo{position:static;grid-column:1;width:min(78%,360px);margin:0 0 6px -14px}
+.hero .copy{padding:0 0 40px}.hero h1{font-weight:500;letter-spacing:.02em}.hero p{color:var(--silver)}
+.h-rib,.gem{display:none}.h-ring{top:6%;right:4%;filter:drop-shadow(0 30px 50px rgba(0,0,0,.6))}
+.scroll i{border-color:var(--silver)}
+
+/* buttons: outlined silver, active = white */
+.btn-dark{background:transparent;color:var(--ink);border:1px solid rgba(255,255,255,.4);box-shadow:none}
+.btn-dark:hover:not(:disabled){background:rgba(255,255,255,.1);box-shadow:none}
+.btn-light{background:#fff;color:#0a0a0b;border-color:#fff}.btn-light:hover{background:#e8e8ec}
+.order button{color:var(--ink)}
+
+/* section headings: diamond above, hairlines either side */
+.home-kicker{display:none}
+.home-section-head::before,.home-featured-intro::before{content:"◇";display:block;font-size:14px;color:var(--silver);margin-bottom:6px}
+.home-section-head h2,.home-featured-intro h2{display:flex;align-items:center;justify-content:center;gap:22px;text-shadow:none;font-weight:500}
+.home-section-head h2::before,.home-section-head h2::after,.home-featured-intro h2::before,.home-featured-intro h2::after{content:"";flex:0 1 150px;height:1px;background:linear-gradient(90deg,transparent,var(--silver))}
+.home-section-head h2::after,.home-featured-intro h2::after{transform:scaleX(-1)}
+
+/* cards */
+.cat,.pcard,.catalog-card{background:linear-gradient(160deg,#232327,#151517)!important;border:1px solid var(--line)!important;color:var(--ink)!important;box-shadow:0 14px 34px rgba(0,0,0,.45)!important;backdrop-filter:none}
+.cat:hover,.catalog-card:hover{border-color:rgba(255,255,255,.4)!important;background:linear-gradient(160deg,#2b2b30,#19191c)!important}
+.catalog-image-link,.stage,.product-stage{background:radial-gradient(circle at 50% 40%,#2a2a2f,#121214)!important}
+.catalog-heart,.mdl-x,.gallery-arrow{background:rgba(20,20,22,.8)!important;color:var(--ink)!important;border-color:var(--line)!important}
+.catalog-new,.tag{background:#fff;color:#0a0a0b}
+.catalog-tools{background:var(--panel)!important;border-color:var(--line)!important}
+.catalog-sort select{background:var(--panel2)!important;color:var(--ink)!important;border-color:var(--line)!important}
+.thumbs button{background:var(--panel2);border-color:var(--line)}.thumbs .on{border-color:#fff;box-shadow:none}
+.feat{background:var(--panel)}.feat .price s,.base,.rate,.facts small{color:var(--steel)}
+
+/* product modal */
+.mdl-back{background:rgba(0,0,0,.72)}
+.mdl{background:#101012!important;border:1px solid var(--line);color:var(--ink)}
+
+/* about / banner / footer */
+.banner{background:linear-gradient(110deg,#141416,#26262a 60%,#121214);border:1px solid var(--line)}
+.foot{border-top:1px solid var(--line)}.foot a{color:var(--silver)}.foot h4{color:var(--ink)}
+.foot input{background:var(--panel2);border-color:var(--line);color:var(--ink)}
+.foot img{filter:none}
+
+/* forms / auth / account */
+.field,.auth-panel .field,.account-form-grid input,.account-form-grid select{background:var(--panel2)!important;border-color:var(--line)!important;color:var(--ink)}
+.field input{color:var(--ink)}.field .ic,.eye{color:var(--silver)}
+.tabs{background:var(--panel2)}.tabs .on{background:#fff;color:#0a0a0b}
+.btn-google,.auth-panel .btn-google{background:var(--panel2)!important;border-color:var(--line)!important;color:var(--ink)}
+.msg.error{background:rgba(220,70,90,.16);color:#ffb3bf}.msg.ok{background:rgba(60,190,120,.16);color:#9fe8c0}
+.or:before,.or:after{background:var(--line)}
+
+/* admin */
+.adm-side{background:#0d0d0f;border-right:1px solid var(--line)}
+.adm-side nav a.on{background:#fff;color:#0a0a0b;box-shadow:none;border-color:#fff}
+.box,.stats{background:var(--panel);border:1px solid var(--line);box-shadow:none;backdrop-filter:none}
+.box h3,.adm-main h1,.adm-main h2{color:var(--ink)}.stats small{color:var(--steel)}
+.grid input,.grid select,.grid textarea,.bar input,.adm select{background:var(--panel2);border-color:var(--line);color:var(--ink)}
+td{border-top-color:var(--line)}.drop{border-color:var(--steel)}.mini,.thumbrow img{background:var(--panel2)}
+.pill-pink{background:#fff;color:#0a0a0b}.bars i{background:linear-gradient(90deg,#4a4a50,#e8e8ec)}
+.rvs blockquote{background:var(--panel2);color:var(--silver)}
+
+/* ---------- Hero media (admin-managed video / slides) ---------- */
+html{color-scheme:dark;scrollbar-color:#3a3a40 var(--bg)}::selection{background:#fff;color:#0a0a0b}
+.hero-media{position:absolute;top:0;left:0;right:0;height:min(100svh,780px);z-index:0;overflow:hidden;pointer-events:none}
+.hm-slide{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.2s ease}.hm-slide.on{opacity:1}
+.hm-shade{position:absolute;inset:0;background:
+  linear-gradient(90deg,rgba(9,9,10,calc(var(--ov) + .35)) 0%,rgba(9,9,10,calc(var(--ov) * .5)) 55%,rgba(9,9,10,calc(var(--ov) * .25)) 100%),
+  linear-gradient(180deg,rgba(9,9,10,.55) 0%,transparent 22%,transparent 60%,var(--bg) 100%)}
+.hm-arrow,.hm-dots{pointer-events:auto}
+.hm-arrow{position:absolute;top:50%;transform:translateY(-50%);width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,.4);background:rgba(9,9,10,.45);color:#fff;font-size:26px;line-height:1;display:grid;place-items:center;transition:background .25s,border-color .25s}
+.hm-arrow:hover{background:#fff;color:#0a0a0b}.hm-arrow.l{left:max(14px,2vw)}.hm-arrow.r{right:max(14px,2vw)}
+.hm-dots{position:absolute;left:50%;bottom:34px;transform:translateX(-50%);display:flex;gap:10px}
+.hm-dots button{width:8px;height:8px;padding:0;border-radius:50%;border:1px solid rgba(255,255,255,.7);background:transparent;transition:width .3s,background .3s}
+.hm-dots .on{width:26px;border-radius:8px;background:#fff}
+/* default animation when no slides are uploaded: soft silver light drifting + a few twinkles */
+.hero-fallback{position:absolute;inset:-10%;background:
+  radial-gradient(40% 35% at 72% 38%,rgba(220,220,230,.17),transparent 70%),
+  radial-gradient(30% 30% at 25% 70%,rgba(190,190,205,.10),transparent 70%);animation:drift 16s ease-in-out infinite alternate}
+.hero-fallback::before,.hero-fallback::after{content:"";position:absolute;inset:0;background-repeat:no-repeat;
+  background-image:radial-gradient(2px 2px at 62% 30%,#fff,transparent),radial-gradient(1.5px 1.5px at 80% 52%,#fff,transparent),radial-gradient(2px 2px at 71% 70%,#fff,transparent),radial-gradient(1.5px 1.5px at 88% 24%,#fff,transparent);animation:twinkle 4.5s ease-in-out infinite}
+.hero-fallback::after{background-image:radial-gradient(1.5px 1.5px at 66% 44%,#fff,transparent),radial-gradient(2px 2px at 84% 38%,#fff,transparent),radial-gradient(1.5px 1.5px at 76% 22%,#fff,transparent);animation-delay:2.2s}
+@keyframes drift{to{transform:translate3d(-3%,2%,0) scale(1.06)}}@keyframes twinkle{0%,100%{opacity:.15}50%{opacity:1}}
+.hero{position:relative;z-index:1;pointer-events:none}.hero .copy,.hero .copy *{pointer-events:auto}
+.hero.has-media .h-art{display:none}.hero.has-media{grid-template-columns:1fr}
+
+/* ---------- Refinement pass ---------- */
+.hero h1{font-size:clamp(30px,4.4vw,54px);line-height:1.08;letter-spacing:.01em;text-wrap:balance}
+.hero p{max-width:380px;font-size:16px;line-height:1.65}
+.home-collections{margin-top:64px!important}.home-featured-intro{margin-top:84px!important}.about{margin-top:84px!important}.banner{margin-top:48px!important}
+.cats{gap:16px}.cat{border-radius:18px;padding:18px 10px 14px}.cat span{border-top:1px solid var(--line);width:100%;padding-top:12px;letter-spacing:.04em}
+.cat:hover{transform:translateY(-4px)}.cat img{filter:drop-shadow(0 12px 22px rgba(0,0,0,.55))}
+.feat{border-radius:22px}.stage{border-radius:16px}.catalog-card{border-radius:18px!important}
+.btn-dark,.btn-light{letter-spacing:.03em}.btn-dark:hover:not(:disabled){border-color:#fff}
+.pill a{letter-spacing:.03em}.nav{border-bottom-color:rgba(255,255,255,.1)}
+.foot{margin-top:40px}.foot a:hover{color:#fff}
+:focus-visible{outline:2px solid #fff;outline-offset:3px}
+@media(max-width:900px){.hero-media{height:min(86svh,640px)}.hm-arrow{width:38px;height:38px;font-size:22px}
+  .hm-shade{background:linear-gradient(180deg,rgba(9,9,10,.6),rgba(9,9,10,calc(var(--ov) + .25)) 55%,var(--bg) 100%)}.hero .logo{width:min(64%,260px)}}
+@media(prefers-reduced-motion:reduce){.hero-fallback,.hero-fallback::before,.hero-fallback::after{animation:none}.hm-slide{transition:none}}
+
+/* ---------- Legibility guarantee: readable over ANY video or image ---------- */
+/* 1) scrim with a fixed floor, so even overlay = 0% keeps the text side dark */
+.hm-shade{background:
+  linear-gradient(90deg,rgba(9,9,10,max(.6,calc(var(--ov) + .3))) 0%,rgba(9,9,10,max(.3,calc(var(--ov) * .6))) 50%,rgba(9,9,10,calc(var(--ov) * .25)) 100%),
+  linear-gradient(180deg,rgba(9,9,10,.6) 0%,transparent 22%,transparent 58%,var(--bg) 100%)}
+/* 2) frosted dark panel behind the copy: contrast no longer depends on what plays behind it */
+.hero .copy{max-width:480px;padding:30px 34px 34px;border-radius:20px;background:rgba(9,9,10,.5);border:1px solid rgba(255,255,255,.14);
+  backdrop-filter:blur(14px) saturate(1.1);-webkit-backdrop-filter:blur(14px) saturate(1.1);box-shadow:0 20px 60px rgba(0,0,0,.35)}
+/* 3) pure white title, near-white body, layered shadow as a last resort */
+.hero h1{color:#fff;font-weight:500;text-shadow:0 2px 24px rgba(0,0,0,.75),0 0 2px rgba(0,0,0,.6)}
+.hero p{color:#ececf0;font-weight:400;text-shadow:0 1px 16px rgba(0,0,0,.7)}
+.hero .scroll{color:#ececf0;text-shadow:0 1px 12px rgba(0,0,0,.7)}
+.hero .btn-dark{background:#fff;color:#0a0a0b;border-color:#fff;text-shadow:none}.hero .btn-dark:hover{background:#e8e8ec}
+.hero .logo,.hero-media~.nav .nav-phone{filter:drop-shadow(0 4px 24px rgba(0,0,0,.8))}
+.nav-phone{color:#ececf0;text-shadow:0 1px 10px rgba(0,0,0,.7)}
+@media(max-width:900px){.hero .copy{max-width:none;padding:22px 20px 24px}}

@@ -23,5 +23,6 @@ export const Bell = mk(<><path d="M6 16v-5a6 6 0 0 1 12 0v5l2 2H4z" /><path d="M
 export const Crown = mk(<path d="M3 8l4 4 5-7 5 7 4-4-2 11H5z" />)
 export const Gear = mk(<><circle cx="12" cy="12" r="3" /><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9 7 7M17 17l2.1 2.1M4.9 19.1 7 17M17 7l2.1-2.1" /></>)
 export const Logout = mk(<><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" /><path d="m16 17 5-5-5-5M21 12H9" /></>)
+export const Brush = mk(<><path d="M4 20c3 0 5-1.5 5-4l-2-2c-2.5 0-3 2-3 6z" /><path d="m9 14 9.5-9.5a2.1 2.1 0 0 1 3 3L12 17" /></>)
 export const Menu = mk(<path d="M4 7h16M4 12h16M4 17h16" />)
 export const Close = mk(<path d="M6 6l12 12M18 6 6 18" />)

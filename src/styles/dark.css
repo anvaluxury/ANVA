@@ -1,0 +1,46 @@
+/* ANVA — full black luxury theme (same look as the reference video). Loaded last. */
+:root{--ink:#f2f2f2;--pearl:#fff;--silver:#b9b9c0;--steel:#9a9aa3;--glass:rgba(255,255,255,.045);--line:rgba(255,255,255,.22);color-scheme:dark}
+html,body,#root{background:#050507}
+body{color:#f2f2f2}
+.home,.auth,.adm{background-color:#050507!important}
+.home::before,.auth::before,.adm::before{background:radial-gradient(ellipse at 50% -8%,#22222c 0%,#0b0b10 52%,#050507 100%)!important}
+::selection{background:#fff;color:#000}
+select option{background:#111;color:#f2f2f2}
+input::placeholder,textarea::placeholder{color:rgba(255,255,255,.45)!important}
+
+/* glass cards -> thin-bordered black panels */
+.glass,.home .glass,.home .catalog-card,.home .product-card,.home .account-shell,.home .account-overview,.home .account-panel{
+  background:rgba(255,255,255,.045)!important;border:1px solid rgba(255,255,255,.18)!important;box-shadow:0 18px 44px rgba(0,0,0,.55)!important}
+.cat:hover,.pcard:hover{background:rgba(255,255,255,.1)!important;border-color:rgba(255,255,255,.45)!important}
+
+/* light surfaces -> dark */
+.btn-light,.product-360 .btn-light,.thumbs button,.thumbrow img,.mini,.mdl-x,.rvs blockquote,.adm select,.foot input,
+.grid input,.grid select,.grid textarea,.bar input,.catalog-sort select,.catalog-heart,.gallery-label,.gallery-arrow,
+.mdl .product-thumbs button,.product-info .heart,.auth-panel .field,.auth-panel .check i,.auth-panel .btn-google,.btn-google,
+.account-form-grid input,.account-form-grid select,.account-review,.auth-panel .tabs button:hover:not(.on){
+  background:rgba(255,255,255,.06)!important;color:#f2f2f2!important;border-color:rgba(255,255,255,.28)!important}
+.btn-light:hover,.btn-google:hover:not(:disabled),.auth-panel .btn-google:hover:not(:disabled),.catalog-heart:hover,.catalog-heart.active,
+.gallery-arrow:hover,.mdl-x:hover,.product-info .heart:hover,.auth-panel .field:hover,.auth-panel .field:focus-within,
+.account-form-grid input:focus,.account-form-grid select:focus,.account-form-grid input:hover,.account-form-grid select:hover{
+  background:rgba(255,255,255,.14)!important;color:#fff!important}
+.catalog-image-link,.product-stage{background:radial-gradient(ellipse at 50% 42%,#26262e,#0d0d12 75%)!important}
+.account-skeleton{background:linear-gradient(90deg,rgba(255,255,255,.04),rgba(255,255,255,.12),rgba(255,255,255,.04))!important}
+
+/* selected / primary: white pill with black text */
+.pill a.on,.pill a:hover,.icons .on,.icons .lg.on,.auth-lang .on,.tabs .on,.auth-panel .tabs .on,.tag{
+  background:#fff!important;color:#0a0a0a!important}
+.btn-dark{background:transparent!important;color:#fff!important;border:1px solid rgba(255,255,255,.6)!important;box-shadow:none!important}
+.btn-dark:hover:not(:disabled){background:#fff!important;color:#0a0a0a!important}
+.banner .btn-dark{border-color:rgba(255,255,255,.6)!important}
+
+/* dark text -> light */
+.product-info h2,.product-price strong,.product-facts small,.account-page,.account-identity h2,.account-card-heading h3,
+.account-shortcut,.account-review-top>b,.auth-panel .field input,.auth-panel .link,.field .ic,.eye,.rvs blockquote p,.rvs blockquote{color:#f2f2f2!important}
+.rvs blockquote{color:#e6c987!important}
+.pill-pink{background:#f6a9c8!important;color:#111!important}
+.check input:checked+i{background:radial-gradient(circle,#fff 40%,transparent 44%)!important}
+
+/* video-style section dividers */
+.home-section-head h2,.home-featured-intro h2{letter-spacing:.02em}
+.home-section-head h2::after,.home-featured-intro h2::after{content:"";display:block;width:70px;height:1px;margin:12px auto 0;background:linear-gradient(90deg,transparent,#fff,transparent)}
+.foot{border-top:1px solid rgba(255,255,255,.15);margin-top:30px!important}

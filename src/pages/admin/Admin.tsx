@@ -15,6 +15,7 @@ import { setSeo } from '../../lib/seo'
 
 import {
   Bell,
+  Brush,
   Chart,
   Crown,
   Gear,
@@ -38,6 +39,7 @@ import Analytics from './Analytics'
 import Reviews from './Reviews'
 import Promotions from './Promotions'
 import HomepageEditor from './HomepageEditor'
+import SiteEditor from './SiteEditor'
 
 const TABS = [
   ['dashboard', Home],
@@ -46,6 +48,7 @@ const TABS = [
   ['promos', Percent],
   ['reviews', Star],
   ['analytics', Chart],
+  ['editor', Brush],
   ['homepage', Layout],
   ['notifs', Bell],
   ['admins', Crown],
@@ -170,12 +173,7 @@ export default function Admin({ lang }: { lang: Lang }) {
   }
 
   return (
-    <div
-      className="adm"
-      style={{
-        backgroundImage: `url(${assets.backgrounds.silk})`
-      }}
-    >
+    <div className={`adm${tab === 'editor' ? ' adm-editing' : ''}`}>
       <aside className="adm-side">
         <img
           src={assets.branding.logo}
@@ -288,6 +286,13 @@ export default function Admin({ lang }: { lang: Lang }) {
         {tab === 'notifs' && (
           <Notifications {...ctx} />
         )}
+
+        {tab === 'editor' &&
+          (s.has('content_manager') ? (
+            <SiteEditor {...ctx} />
+          ) : (
+            <p className="glass box">{T('no_perm')}</p>
+          ))}
 
         {tab === 'homepage' &&
           (s.has('content_manager') ? (

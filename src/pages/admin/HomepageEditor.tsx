@@ -2,8 +2,9 @@ import { useCallback, useEffect, useState } from 'react'
 import { publicUrl, uploadImage } from '../../lib/auth'
 import { adminSupabase as supabase } from '../../lib/supabase'
 import type { Ctx } from './Admin'
+import HeroMediaEditor from './HeroMediaEditor'
 const LG = ['hy', 'ru', 'en'] as const; const KEYS = ['hero', 'about', 'banner'] as const
-export default function HomepageEditor({ T }: Ctx) {
+export default function HomepageEditor({ T, lang }: Ctx) {
   const [rows, setRows] = useState<Record<string, any>>({}); const [msg, setMsg] = useState('')
   const load = useCallback(async () => { const { data } = await supabase.from('homepage_sections').select('*,homepage_translations(lang,title,body,button_label)')
     setRows(Object.fromEntries((data ?? []).map((r: any) => [r.key, { ...r, tr: Object.fromEntries(LG.map(l => [l, r.homepage_translations.find((t: any) => t.lang === l) ?? { title: '', body: '', button_label: '' }])) }]))) }, [])
@@ -16,7 +17,7 @@ export default function HomepageEditor({ T }: Ctx) {
       const { error: e2 } = await supabase.from('homepage_translations').upsert(LG.map(l => ({ section_key: k, lang: l, title: r.tr[l].title, body: r.tr[l].body, button_label: r.tr[l].button_label }))); if (e2) throw e2
       setMsg(`${T('saved')} · ${T(k as any)}`) } catch (e: any) { setMsg(`${T('err')}: ${e.message}`) } }
   const up = async (k: string, f?: File) => { if (!f) return; try { upd(k, { image_path: await uploadImage('homepage-images', f, k) }) } catch (e: any) { setMsg(`${T('err')}: ${e.message === 'type' || e.message === 'size' ? T('err_file') : e.message}`) } }
-  return <>{KEYS.filter(k => rows[k]).map(k => { const r = rows[k]; return <section className="glass box" key={k}><h3>{T(k as any)}</h3>
+  return <><HeroMediaEditor lang={lang} T={T} />{KEYS.filter(k => rows[k]).map(k => { const r = rows[k]; return <section className="glass box" key={k}><h3>{T(k as any)}</h3>
     <div className="grid">{LG.map(l => <div key={l} className="wide" style={{ display: 'contents' }}>
       <label>{T('ttl')} {l.toUpperCase()}<input value={r.tr[l].title ?? ''} onChange={e => updTr(k, l, { title: e.target.value })} /></label>
       <label className="wide">{T('body')} {l.toUpperCase()}<textarea rows={2} value={r.tr[l].body ?? ''} onChange={e => updTr(k, l, { body: e.target.value })} /></label>

@@ -1,0 +1,88 @@
+/* ANVA — video-style dark luxury look: logo, hero slider, contact line */
+
+
+/* ---------- Header logo (always clearly visible) ---------- */
+.nav .brand { display: inline-flex; align-items: center; flex: none; position: relative; z-index: 2; text-decoration: none; }
+.nav .brand img {
+  height: 74px; width: auto; display: block;
+  filter: drop-shadow(0 0 14px rgba(255,255,255,.38)) drop-shadow(0 4px 10px rgba(0,0,0,.6));
+  animation: brandIn .9s cubic-bezier(.2,.8,.2,1) both, brandGlow 5s ease-in-out 1s infinite;
+  transition: transform .35s cubic-bezier(.2,.8,.2,1);
+}
+.nav .brand:hover img { transform: scale(1.06) rotate(-1deg); }
+@keyframes brandIn { from { opacity: 0; transform: translateY(-10px) scale(.92); } }
+@keyframes brandGlow { 50% { filter: drop-shadow(0 0 22px rgba(255,255,255,.65)) drop-shadow(0 4px 10px rgba(0,0,0,.6)); } }
+
+/* ---------- Hero slider ---------- */
+.home .hslider {
+  position: relative; max-width: 1180px; margin: 8px auto 0; padding: 0 !important;
+  height: min(74vh, 620px); min-height: 440px; border-radius: 34px; overflow: hidden;
+  background: radial-gradient(circle at 50% 30%, #2b2a33, #0a0a0e 70%);
+  border: 1px solid rgba(255,255,255,.22); box-shadow: 0 24px 60px rgba(0,0,0,.5);
+  display: flex; align-items: center; justify-content: center; text-align: center; isolation: isolate;
+}
+.hs-bg { position: absolute; inset: 0; opacity: 0; transition: opacity 1.2s ease; z-index: 0; }
+.hs-bg.on { opacity: 1; }
+.hs-bg img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.02); }
+.hs-bg.on img { animation: kenburns 9s ease-out both; }
+@keyframes kenburns { from { transform: scale(1.02); } to { transform: scale(1.12); } }
+.hs-shade { position: absolute; inset: 0; z-index: 1; background: radial-gradient(ellipse at 50% 45%, rgba(0,0,0,.18), rgba(0,0,0,.62) 78%), linear-gradient(rgba(0,0,0,.25), rgba(0,0,0,.45)); }
+.hs-sparks { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; }
+.hs-copy { position: relative; z-index: 3; padding: 24px 76px; max-width: 760px; color: #fff; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.hs-copy > * { animation: hsUp .9s cubic-bezier(.2,.8,.2,1) both; }
+.hs-copy > :nth-child(2) { animation-delay: .12s; } .hs-copy > :nth-child(3) { animation-delay: .24s; } .hs-copy > :nth-child(4) { animation-delay: .36s; }
+@keyframes hsUp { from { opacity: 0; transform: translateY(22px); } }
+.hs-logo { width: min(62vw, 330px); height: auto; filter: drop-shadow(0 0 18px rgba(255,255,255,.45)) drop-shadow(0 6px 14px rgba(0,0,0,.65)); }
+.hs-copy h1 { font-size: clamp(26px, 4vw, 44px); margin: 6px 0 2px; text-shadow: 0 4px 24px rgba(0,0,0,.6); }
+.hs-copy p { max-width: 520px; font-size: 16px; line-height: 1.55; margin: 0 0 16px; text-shadow: 0 2px 14px rgba(0,0,0,.6); }
+.hs-ar { position: absolute; top: 50%; z-index: 4; transform: translateY(-50%); width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(255,255,255,.5); background: rgba(10,10,14,.45); color: #fff; font-size: 26px; line-height: 1; cursor: pointer; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); transition: background .25s, transform .25s; }
+.hs-ar.l { left: 16px; } .hs-ar.r { right: 16px; }
+.hs-ar:hover { background: #fff; color: #111; transform: translateY(-50%) scale(1.08); }
+.hs-dots { position: absolute; z-index: 4; left: 0; right: 0; bottom: 16px; display: flex; justify-content: center; gap: 8px; }
+.hs-dots button { width: 9px; height: 9px; padding: 0; border-radius: 999px; border: 1px solid #fff; background: transparent; cursor: pointer; transition: width .35s, background .35s; }
+.hs-dots button.on { width: 28px; background: #fff; }
+
+/* ---------- One-line contact bar ---------- */
+.cl { display: flex; flex-wrap: nowrap; align-items: center; justify-content: center; gap: 10px; width: 100%; margin-bottom: 12px; padding: 8px 12px; border-radius: 999px; background: linear-gradient(110deg, #0b0a0c, #3a363b 60%, #17151a); border: 1px solid rgba(255,255,255,.3); color: #fff; overflow: hidden; position: relative; }
+.cl::after { content: ""; position: absolute; top: 0; bottom: 0; width: 40%; left: -60%; background: linear-gradient(100deg, transparent, rgba(255,255,255,.22), transparent); animation: clShine 5s ease-in-out infinite; pointer-events: none; }
+@keyframes clShine { 0%, 60% { left: -60%; } 100% { left: 130%; } }
+.cl-label { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; opacity: .8; white-space: nowrap; margin-right: auto; padding-left: 6px; }
+.cl button { background: none; border: 0; color: #fff; cursor: pointer; position: relative; z-index: 1; }
+.cl button:disabled { opacity: .35; cursor: not-allowed; }
+.cl-phone { display: inline-flex; align-items: center; gap: 9px; padding: 4px 14px 4px 5px; border-radius: 999px; background: rgba(255,255,255,.12); white-space: nowrap; font-size: 15px; transition: background .25s, transform .25s; }
+.cl-phone:hover:not(:disabled) { background: rgba(255,255,255,.24); transform: translateY(-1px); }
+.cl-phone b { font-weight: 600; letter-spacing: .03em; }
+.cl-ring { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: #fff; color: #111; position: relative; font-style: normal; }
+.cl-ring::before { content: ""; position: absolute; inset: 0; border-radius: 50%; border: 2px solid rgba(255,255,255,.7); animation: clPulse 2.2s ease-out infinite; }
+.cl-phone:hover .cl-ring svg { animation: clRing .6s ease-in-out; }
+@keyframes clPulse { from { transform: scale(1); opacity: .9; } to { transform: scale(1.9); opacity: 0; } }
+@keyframes clRing { 25% { transform: rotate(-16deg); } 50% { transform: rotate(14deg); } 75% { transform: rotate(-8deg); } }
+.cl-ic { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgba(255,255,255,.35) !important; transition: transform .25s, background .25s, color .25s; }
+.cl-ic:hover:not(:disabled) { background: #fff; color: #111; transform: translateY(-3px) rotate(8deg); }
+
+/* footer contact lines stay on one line */
+.foot .cline { white-space: nowrap; transition: transform .25s; }
+.foot .cline:hover { transform: translateX(4px); }
+.foot .soc a { transition: transform .25s; } .foot .soc a:hover { transform: translateY(-3px) scale(1.1); }
+
+/* ---------- Admin: slide previews ---------- */
+.slide-prev { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-top: 8px; }
+.slide-prev img { width: 220px; aspect-ratio: 16/9; object-fit: cover; border-radius: 12px; background: rgba(255,255,255,.4); }
+.slide-th { width: 96px; aspect-ratio: 16/9; object-fit: cover; border-radius: 10px; display: block; background: rgba(255,255,255,.4); }
+.slide-th.empty { display: grid; place-items: center; font-size: 11px; letter-spacing: .2em; color: #fff; background: #26242a; }
+
+/* ---------- Mobile ---------- */
+@media (max-width: 900px) {
+  .nav .brand img { height: 54px; }
+  .home .hslider { min-height: 420px; height: 64vh; border-radius: 24px; margin: 4px 10px 0; max-width: none; }
+  .hs-copy { padding: 18px 54px; } .hs-copy p { font-size: 14px; }
+  .hs-ar { width: 34px; height: 34px; font-size: 20px; } .hs-ar.l { left: 8px; } .hs-ar.r { right: 8px; }
+}
+@media (max-width: 520px) {
+  .cl-label { display: none; } .cl { justify-content: space-between; gap: 6px; padding: 6px 8px; }
+  .cl-phone { font-size: 13px; padding-right: 10px; } .cl-ic { width: 36px; height: 36px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nav .brand img, .hs-bg.on img, .hs-copy > *, .cl::after, .cl-ring::before { animation: none !important; }
+  .hs-bg { transition: none; }
+}

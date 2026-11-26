@@ -1,129 +1,101 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link, Navigate, useNavigate } from 'react-router-dom'
-import { assets } from '../assets'
+import { SiteFooter, SiteHeader } from '../components/SiteChrome'
 import { Lang, LANGS } from '../i18n'
 import { a } from '../i18n/admin'
 import { useSession } from '../lib/auth'
 import { COUNTRIES } from '../lib/currency'
+import { pick, t3, useContact } from '../lib/data'
 import { useFavs } from '../lib/favorites'
-import { supabase } from '../lib/supabase'
 import { setSeo } from '../lib/seo'
+import { useSiteConfig } from '../lib/siteConfig'
+import { supabase } from '../lib/supabase'
 
-type Profile = { full_name: string; preferred_language: string; country: string }
-type Review = { rating: number; body: string; status: string; products?: { product_translations?: { lang: string; name: string }[] } | null }
+type Profile = { full_name: string; phone: string; preferred_language: string; country: string }
+type Review = { rating: number; body: string | null; status: string; products?: { product_translations?: { lang: Lang; name: string }[] } | null }
 
 export default function Account({ lang }: { lang: Lang }) {
-  const s = useSession()
-  const nav = useNavigate()
-  const favs = useFavs()
-  const T = (k: any) => a(lang, k)
-  const [p, setP] = useState<Profile>({ full_name: '', preferred_language: lang, country: 'AM' })
-  const [rv, setRv] = useState<Review[]>([])
-  const [msg, setMsg] = useState('')
-  const [loadingData, setLoadingData] = useState(true)
-  const [saving, setSaving] = useState(false)
+  const s = useSession(); const nav = useNavigate(); const favs = useFavs(); const contact = useContact(); const { preview } = useSiteConfig()
+  const T = (k: Parameters<typeof a>[1]) => a(lang, k)
+  const [p, setP] = useState<Profile>({ full_name: '', phone: '', preferred_language: lang, country: 'AM' })
+  const [rv, setRv] = useState<Review[]>([]); const [msg, setMsg] = useState(''); const [loadingData, setLoadingData] = useState(true); const [saving, setSaving] = useState(false)
 
   useEffect(() => {
-    if (!s.user) return
-    let active = true
-    setLoadingData(true)
+    if (!s.user) { setLoadingData(false); return }
+    const user = s.user; let active = true; setLoadingData(true)
     void Promise.all([
-      supabase.from('profiles').select('full_name,preferred_language,country').eq('id', s.user.id).maybeSingle(),
-      supabase.from('reviews').select('rating,body,status,products(product_translations(lang,name))').eq('user_id', s.user.id).order('created_at', { ascending: false })
-    ]).then(([profileResult, reviewResult]) => {
+      supabase.from('profiles').select('full_name,phone,preferred_language,country').eq('id', user.id).maybeSingle(),
+      supabase.from('reviews').select('rating,body,status,products(product_translations(lang,name))').eq('user_id', user.id).order('created_at', { ascending: false }),
+    ]).then(async ([pr, rr]) => {
       if (!active) return
-      if (profileResult.data) setP({
-        full_name: profileResult.data.full_name ?? '',
-        preferred_language: profileResult.data.preferred_language ?? lang,
-        country: profileResult.data.country ?? 'AM'
-      })
-      setRv((reviewResult.data ?? []) as unknown as Review[])
-      setLoadingData(false)
+      const meta = user.user_metadata as { phone?: string; full_name?: string }
+      const row = pr.data
+      const next: Profile = { full_name: row?.full_name ?? meta.full_name ?? '', phone: row?.phone ?? '', preferred_language: row?.preferred_language ?? lang, country: row?.country ?? 'AM' }
+      // accounts created before the phone field existed (or before migration 005) get the phone from signup metadata, once
+      if (!next.phone && meta.phone) { next.phone = meta.phone; void supabase.from('profiles').update({ phone: meta.phone }).eq('id', user.id) }
+      setP(next); setRv((rr.data ?? []) as unknown as Review[]); setLoadingData(false)
     })
     return () => { active = false }
   }, [s.user?.id]) // eslint-disable-line
 
   useEffect(() => setSeo({ title: `ANVA — ${a(lang, 'profile')}`, lang, noindex: true }), [lang])
+  const initials = useMemo(() => { const parts = p.full_name.trim().split(/\s+/).filter(Boolean); return (parts.length ? `${parts[0][0] ?? ''}${parts[1]?.[0] ?? ''}` : (s.user?.email?.[0] ?? 'A')).toUpperCase() }, [p.full_name, s.user?.email])
 
-  const initials = useMemo(() => {
-    const parts = p.full_name.trim().split(/\s+/).filter(Boolean)
-    return (parts.length ? `${parts[0][0] ?? ''}${parts[1]?.[0] ?? ''}` : (s.user?.email?.[0] ?? 'A')).toUpperCase()
-  }, [p.full_name, s.user?.email])
-
-  if (s.loading) return <div className="account-loading" aria-label="Loading" />
-  if (!s.user) return <Navigate to={`/${lang}/login`} replace />
+  if (s.loading) return <div className="adm-wait" aria-label="Loading">…</div>
+  if (!s.user && !preview) return <Navigate to={`/${lang}/login`} replace />
 
   const save = async () => {
-    setSaving(true)
-    setMsg('')
-    const { error } = await supabase.from('profiles').update({
-      full_name: p.full_name.trim(),
-      preferred_language: p.preferred_language,
-      country: p.country
-    }).eq('id', s.user!.id)
-    setSaving(false)
-    if (error) return setMsg(`${T('err')}: ${error.message}`)
-    localStorage.setItem('anva_country', p.country)
-    localStorage.setItem('anva_country_manual', '1')
-    setMsg(T('saved'))
+    if (!s.user) return
+    const phone = p.phone.trim(); if (phone && !/^\+?[\d\s()-]{7,22}$/.test(phone)) return setMsg(t3(lang, 'Սխալ հեռախոսահամար։', 'Неверный номер телефона.', 'Invalid phone number.'))
+    setSaving(true); setMsg('')
+    const { error } = await supabase.from('profiles').update({ full_name: p.full_name.trim(), phone: phone || null, preferred_language: p.preferred_language, country: p.country }).eq('id', s.user.id)
+    setSaving(false); if (error) return setMsg(`${T('err')}: ${error.message}`)
+    localStorage.setItem('anva_country', p.country); localStorage.setItem('anva_country_manual', '1'); setMsg(T('saved'))
     if (p.preferred_language !== lang) nav(`/${p.preferred_language}/account`)
   }
-
-  const countryName = new Intl.DisplayNames([lang], { type: 'region' }).of(p.country) ?? p.country
+  const regionName = (c: string) => new Intl.DisplayNames([lang], { type: 'region' }).of(c) ?? c
 
   return (
-    <div className="home grid-page account-page" style={{ backgroundImage: `url(${assets.backgrounds.silk})` }}>
-      <header className="nav account-nav">
-        <Link to={`/${lang}`} aria-label="ANVA LUXURY home"><img src={assets.branding.logo} alt="ANVA" width={90} /></Link>
-        <Link className="account-back-link" to={`/${lang}`}>← <span>{lang === 'hy' ? 'Գլխավոր էջ' : lang === 'ru' ? 'На главную' : 'Back to store'}</span></Link>
-      </header>
+    <div className="site">
+      <SiteHeader lang={lang} contact={contact} langPath="/account" />
+      <main className="acct" data-edit="account">
+        <div className="acct-head"><h1>{T('profile')}</h1><p>{t3(lang, 'Կառավարեք Ձեր անձնական տվյալներն ու նախընտրությունները։', 'Управляйте личными данными и предпочтениями.', 'Manage your personal details and preferences.')}</p></div>
 
-      <section className="account-shell">
-        <div className="account-heading">
-          <span className="account-kicker">ANVA LUXURY · PRIVATE AREA</span>
-          <h1>{T('profile')}</h1>
-          <p>{lang === 'hy' ? 'Կառավարեք Ձեր անձնական տվյալներն ու նախընտրությունները։' : lang === 'ru' ? 'Управляйте личными данными и предпочтениями.' : 'Manage your personal details and preferences.'}</p>
+        <div className="acct-card acct-overview">
+          <div className="avatar" aria-hidden>{initials}</div>
+          <div className="who"><small>{t3(lang, 'Բարի վերադարձ', 'С возвращением', 'Welcome back')}</small><h2>{p.full_name.trim() || s.user?.email?.split('@')[0] || '—'}</h2><p>{s.user?.email ?? s.user?.phone ?? ''}</p></div>
+          <div className="stat"><strong>{favs.ids.size}</strong><span>{T('favs')}</span></div>
+          <div className="stat"><strong>{rv.length}</strong><span>{T('my_reviews')}</span></div>
         </div>
 
-        <div className="account-overview glass">
-          <div className="account-avatar">{initials}</div>
-          <div className="account-identity">
-            <span>{lang === 'hy' ? 'Բարի վերադարձ' : lang === 'ru' ? 'С возвращением' : 'WELCOME BACK'}</span>
-            <h2>{p.full_name.trim() || s.user.email?.split('@')[0] || 'ANVA Client'}</h2>
-            <p>{s.user.email ?? s.user.phone}</p>
-          </div>
-          <div className="account-overview-divider" />
-          <div className="account-stat"><strong>{favs.ids.size}</strong><span>{T('favs')}</span></div>
-          <div className="account-stat"><strong>{rv.length}</strong><span>{T('my_reviews')}</span></div>
-        </div>
-
-        <div className="account-content-grid">
-          <div className="glass box account-card account-profile-card">
-            <div className="account-card-heading"><span className="account-card-icon">✧</span><div><span className="account-kicker">PERSONAL DETAILS</span><h3>{lang === 'hy' ? 'Անձնական տվյալներ' : lang === 'ru' ? 'Личные данные' : 'Personal details'}</h3></div></div>
-            {loadingData ? <div className="account-skeleton" /> : <div className="account-form-grid">
-              <label>{T('full_name')}<input autoComplete="name" value={p.full_name} onChange={e => setP({ ...p, full_name: e.target.value })} placeholder={lang === 'hy' ? 'Մուտքագրեք Ձեր անունը' : lang === 'ru' ? 'Введите ваше имя' : 'Enter your full name'} /></label>
-              <label>{T('lang_pref')}<select value={p.preferred_language} onChange={e => setP({ ...p, preferred_language: e.target.value })}>{LANGS.map(l => <option key={l} value={l}>{l.toUpperCase()}</option>)}</select></label>
-              <label>{T('country_l')}<select value={p.country} onChange={e => setP({ ...p, country: e.target.value })}>{COUNTRIES.map(c => <option key={c} value={c}>{new Intl.DisplayNames([lang], { type: 'region' }).of(c)}</option>)}</select><small className="account-current-country">{countryName}</small></label>
+        <div className="acct-grid">
+          <section className="acct-card">
+            <h3>{t3(lang, 'Անձնական տվյալներ', 'Личные данные', 'Personal details')}</h3>
+            {loadingData ? <div className="skeleton" /> : <div className="form-grid">
+              <label>{T('full_name')}<input autoComplete="name" value={p.full_name} onChange={e => setP({ ...p, full_name: e.target.value })} disabled={!s.user} /></label>
+              <label>{t3(lang, 'Հեռախոսահամար', 'Номер телефона', 'Phone number')}<input type="tel" inputMode="tel" autoComplete="tel" value={p.phone} onChange={e => setP({ ...p, phone: e.target.value })} disabled={!s.user} /></label>
+              <label>{T('lang_pref')}<select value={p.preferred_language} onChange={e => setP({ ...p, preferred_language: e.target.value })} disabled={!s.user}>{LANGS.map(l => <option key={l} value={l}>{l.toUpperCase()}</option>)}</select></label>
+              <label>{T('country_l')}<select value={p.country} onChange={e => setP({ ...p, country: e.target.value })} disabled={!s.user}>{COUNTRIES.map(c => <option key={c} value={c}>{regionName(c)}</option>)}</select></label>
             </div>}
-            <div className="account-actions"><button className="btn-dark" onClick={save} disabled={saving || loadingData}>{saving ? '…' : T('save')}</button><span className="account-message" role="status">{msg}</span></div>
-          </div>
-
-          <aside className="account-side-column">
-            <Link className="glass account-shortcut" to={`/${lang}/favorites`}><span className="account-shortcut-icon">♡</span><span><b>{T('favs')}</b><small>{lang === 'hy' ? 'Դիտել պահպանված ապրանքները' : lang === 'ru' ? 'Посмотреть сохранённые товары' : 'View your saved pieces'}</small></span><strong>↗</strong></Link>
-            <div className="glass account-security-note"><span>◈</span><div><b>{lang === 'hy' ? 'Ձեր հաշիվը' : lang === 'ru' ? 'Ваш аккаунт' : 'Your account'}</b><p>{lang === 'hy' ? 'Ձեր տվյալները հասանելի են միայն Ձեր մուտք գործած հաշվից։' : lang === 'ru' ? 'Ваши данные доступны только после входа в аккаунт.' : 'Your profile details are available only when you are signed in.'}</p></div></div>
-            <button className="account-logout" onClick={async () => { await supabase.auth.signOut(); nav(`/${lang}`) }}><span>↗</span>{T('logout')}</button>
+            <div className="acts"><button className="btn-dark" onClick={save} disabled={saving || loadingData || !s.user}>{saving ? '…' : T('save')}</button><span className="account-message" role="status">{msg}</span></div>
+          </section>
+          <aside className="acct-side">
+            <Link className="acct-card shortcut" to={`/${lang}/favorites`}><span><b>{T('favs')}</b><small>{t3(lang, 'Դիտել պահպանված ապրանքները', 'Посмотреть сохранённые товары', 'View your saved pieces')}</small></span><i aria-hidden>→</i></Link>
+            <Link className="acct-card shortcut" to={`/${lang}`}><span><b>{t3(lang, 'Գլխավոր էջ', 'На главную', 'Back to store')}</b><small>{t3(lang, 'Վերադառնալ խանութ', 'Вернуться в магазин', 'Continue browsing')}</small></span><i aria-hidden>→</i></Link>
+            <button className="btn-light logout" disabled={!s.user} onClick={async () => { await supabase.auth.signOut(); nav(`/${lang}`) }}>{T('logout')}</button>
           </aside>
         </div>
 
-        <div className="glass box account-card account-reviews-card">
-          <div className="account-card-heading"><span className="account-card-icon">✦</span><div><span className="account-kicker">YOUR VOICE</span><h3>{T('my_reviews')}</h3></div></div>
-          {loadingData ? <div className="account-skeleton account-skeleton-short" /> : rv.length ? <div className="account-review-list">{rv.map((r, i) => {
-            const productName = (r.products?.product_translations?.find(t => t.lang === lang) ?? r.products?.product_translations?.[0])?.name
-            return <article className="account-review" key={`${i}-${r.body}`}><div className="account-review-top"><b>{productName || (lang === 'hy' ? 'Ապրանք' : lang === 'ru' ? 'Товар' : 'Product')}</b><span className={`account-review-status status-${r.status}`}>{T(`${r.status}_s`)}</span></div><div className="account-review-stars" aria-label={`${r.rating} / 5`}>{'★'.repeat(r.rating)}<span>{'★'.repeat(Math.max(0, 5 - r.rating))}</span></div><p>{r.body}</p></article>
-          })}</div> : <div className="account-empty"><span>✧</span><p>{T('none_yet')}</p><small>{lang === 'hy' ? 'Ձեր կարծիքները կհայտնվեն այստեղ։' : lang === 'ru' ? 'Ваши отзывы появятся здесь.' : 'Your submitted reviews will appear here.'}</small></div>}
-        </div>
-        <footer className="account-footer">ANVA LUXURY <span>·</span> THE ART OF ELEGANCE</footer>
-      </section>
+        <section className="acct-card">
+          <h3>{T('my_reviews')}</h3>
+          {loadingData ? <div className="skeleton short" /> : rv.length ? <div className="rv-list">{rv.map((r, i) => {
+            const name = pick(r.products?.product_translations, lang)?.name
+            return <article className="rv-item" key={`${i}-${r.body}`}><div className="rv-top"><b>{name || t3(lang, 'Ապրանք', 'Товар', 'Product')}</b><span className={`status s-${r.status}`}>{T(`${r.status}_s` as 'pending_s')}</span></div>
+              <div className="stars" aria-label={`${r.rating} / 5`}>{'★'.repeat(r.rating)}<span>{'★'.repeat(Math.max(0, 5 - r.rating))}</span></div>{r.body && <p>{r.body}</p>}</article>
+          })}</div> : <div className="empty"><p style={{ margin: 0 }}>{T('none_yet')}</p><small>{t3(lang, 'Ձեր կարծիքները կհայտնվեն այստեղ։', 'Ваши отзывы появятся здесь.', 'Your submitted reviews will appear here.')}</small></div>}
+        </section>
+      </main>
+      <SiteFooter lang={lang} contact={contact} />
     </div>
   )
 }
