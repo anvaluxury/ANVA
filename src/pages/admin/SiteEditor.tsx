@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { Lang, LANGS } from '../../i18n'
+import { Lang, LANGS } from '../../../supabase/functions/auto-translate'
 import { E, EKey } from '../../i18n/editor'
 import { adminSupabase } from '../../lib/supabase'
 import {

@@ -1,5 +1,5 @@
 import { createContext, ReactNode, useCallback, useContext, useEffect, useMemo, useState } from 'react'
-import type { Lang } from '../i18n'
+import type { Lang } from '../../supabase/functions/auto-translate'
 export const EURO = ['AT', 'BE', 'BG', 'HR', 'CY', 'EE', 'FI', 'FR', 'DE', 'GR', 'IE', 'IT', 'LV', 'LT', 'LU', 'MT', 'NL', 'PT', 'SK', 'SI', 'ES']
 export const COUNTRIES = ['AM', 'RU', 'US', ...EURO]
 const curOf = (c: string) => (c === 'AM' ? 'AMD' : c === 'RU' ? 'RUB' : c === 'US' ? 'USD' : EURO.includes(c) ? 'EUR' : 'USD')

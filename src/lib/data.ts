@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import type { Lang } from '../i18n'
+import type { Lang } from '../../supabase/functions/auto-translate'
 import { supabase, supabaseConfigured } from './supabase'
 
 export type Contact = Record<string, string>

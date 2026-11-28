@@ -1,8 +1,8 @@
 import { FormEvent, KeyboardEvent, useEffect, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { assets } from '../assets'
-import { Eye, EyeOff, Lock, Mail, Phone, User } from '../components/Icons'
-import { LANGS, Lang, Key, t } from '../i18n'
+import { ArrowRight, Edit, Eye, EyeOff, Home, Lock, Mail, Phone, User } from '../components/Icons'
+import { LANGS, Lang, Key, t } from '../../supabase/functions/auto-translate'
 import { storageUrl } from '../lib/data'
 import { setSeo } from '../lib/seo'
 import { useSiteConfig } from '../lib/siteConfig'
@@ -86,11 +86,10 @@ export default function AuthPage({ lang }: { lang: Lang }) {
   return (
     <main className="auth" data-edit="auth">
       <div className="auth-art" aria-hidden>
-        {art ? <img src={art} alt="" /> : <><img className="mono" src={assets.branding.monogram} alt="" /><img className="ring" src={assets.jewelry.ringPave} alt="" /></>}
+        {art ? <img src={art} alt="" /> : <><img className="mono" src={assets.branding.monogram} alt="" /></>}
       </div>
       <div className="auth-side">
         <div className="auth-top">
-          <Link className="auth-home" to={`/${lang}`}>← {T('back_home')}</Link>
           <div className="auth-lang" role="group" aria-label={T('lang')}>{LANGS.map(l => <button key={l} type="button" className={l === lang ? 'on' : ''} onClick={() => nav(`/${l}/login`)}>{l.toUpperCase()}</button>)}</div>
         </div>
         <div className="auth-panel">
@@ -104,7 +103,7 @@ export default function AuthPage({ lang }: { lang: Lang }) {
             </div>
           ) : (
             <form ref={formRef} onSubmit={submit} noValidate>
-              <div className="tabs" role="tablist">{(['login', 'register'] as Mode[]).map(m => <button type="button" role="tab" aria-selected={mode === m} key={m} className={mode === m ? 'on' : ''} onClick={() => { setMode(m); setMsg(null); setErrs({}) }}>{T(m)}</button>)}</div>
+              <div className="tabs" role="tablist">{(['login', 'register'] as Mode[]).map(m => <button type="button" role="tab" aria-selected={mode === m} key={m} className={mode === m ? 'on' : ''} onClick={() => { setMode(m); setMsg(null); setErrs({}) }}><span className="tab-ic">{m === 'login' ? <User size={22} filled /> : <Edit size={22} />}</span>{T(m)}</button>)}</div>
               <p className="auth-sub">{T(mode === 'login' ? 'login_sub' : 'register_sub')}</p>
               {mode === 'register' && <div className="two-f">
                 {field('first', 'first_name', <User size={19} />, { autoComplete: 'given-name', type: 'text', autoCapitalize: 'words' })}
@@ -115,13 +114,14 @@ export default function AuthPage({ lang }: { lang: Lang }) {
               {mode === 'register' && <small className="hint">{T('pw_hint')}</small>}
               {mode === 'login' && <div className="row"><label className="check"><input type="checkbox" checked={remember} onChange={e => setRem(e.target.checked)} /><i />{T('remember')}</label><button type="button" className="link" onClick={forgot}>{T('forgot')}</button></div>}
               {msg && <p role="alert" className={`msg ${msg.kind}`}>{T(msg.key)}</p>}
-              <button className="btn-dark wide-btn" disabled={busy}>{busy && <span className="spin-dot" aria-hidden />}{busy ? T('loading') : mode === 'login' ? T('login') : T('create')}</button>
+              <button className={`btn-dark wide-btn mo-load${busy ? ' is-busy' : ''}`} disabled={busy} aria-busy={busy}>{busy && <span className="spin-dot" aria-hidden />}{busy ? T('loading') : mode === 'login' ? T('login') : T('create')}{!busy && <span className="go" aria-hidden><ArrowRight size={19} /></span>}</button>
               <div className="or"><span>{T('or')}</span></div>
               <button type="button" className="btn-light wide-btn" onClick={google} disabled={busy}>
                 <svg width="20" height="20" viewBox="0 0 48 48" aria-hidden><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C35.9 2.4 30.4 0 24 0 14.6 0 6.5 5.4 2.6 13.2l7.9 6.1C12.4 13.6 17.7 9.5 24 9.5z" /><path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.7c-.6 3-2.3 5.5-4.8 7.2l7.5 5.8c4.4-4.1 7.1-10.1 7.1-17.5z" /><path fill="#FBBC05" d="M10.5 28.7c-.5-1.5-.8-3-.8-4.7s.3-3.2.8-4.7l-7.9-6.1C.9 16.4 0 20.1 0 24s.9 7.6 2.6 10.8l7.9-6.1z" /><path fill="#34A853" d="M24 48c6.5 0 11.9-2.1 15.9-5.8l-7.5-5.8c-2.1 1.4-4.8 2.3-8.4 2.3-6.3 0-11.6-4.1-13.5-9.8l-7.9 6.1C6.5 42.6 14.6 48 24 48z" /></svg>
                 {T('google')}</button>
             </form>
           )}
+          <Link className="auth-home" to={`/${lang}`}><Home size={22} />{T('back_home')}</Link>
         </div>
       </div>
     </main>

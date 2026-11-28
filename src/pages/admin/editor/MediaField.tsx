@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react'
-import type { Lang } from '../../../i18n'
+import type { Lang } from '../../../../supabase/functions/auto-translate'
 import { E } from '../../../i18n/editor'
 import { IMG_TYPES, MAX_IMAGE, uploadBlob } from '../../../lib/media'
 import { publicUrl } from '../../../lib/auth'
@@ -25,7 +25,7 @@ export default function MediaField({ lang, label, bucket, folder, path, onChange
         </div>
       </div>
       <input ref={input} type="file" hidden accept={IMG_TYPES.join(',')} onChange={ev => { pick(ev.target.files?.[0]); ev.target.value = '' }} />
-      {!url && <small className="muted">{note ?? e('placeholder_note')}</small>}{url && <small className="muted">{e('file_kept')}</small>}
+      {!url && <small className="muted">{note ?? e('placeholder_note')}</small>}{url && <small className="muted">{e('file_kept')}</small>}<small className="muted mf-dimension-hint">{lang === 'hy' ? 'Նկարի չափերն ու հարաբերակցությունը կարող եք ընտրել խմբագրման պատուհանում՝ «Հատուկ» տարբերակով (W × H), ինչպես նաև սահմանել վերջնական պիքսելային չափը։' : lang === 'ru' ? 'Соотношение сторон задаётся в редакторе через «Свой размер» (Ш × В); там же можно выбрать итоговое разрешение в пикселях.' : 'Choose any image aspect ratio in the editor with “Custom” (W × H), and set the final pixel resolution there.'}</small>
       {msg && <p className="msg error" role="alert">{msg}</p>}
       {src && <ImageEditor lang={lang} source={src} defaultRatio={ratio} onClose={() => setSrc(null)} onSave={async blob => { onChange(await uploadBlob(bucket, blob, folder, MAX_IMAGE)); setSrc(null) }} />}
     </div>

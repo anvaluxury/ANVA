@@ -4,6 +4,8 @@ import { adminSupabase as supabase } from '../../lib/supabase'
 import { translate } from '../../lib/translate'
 import { uuid } from '../../lib/uuid'
 import type { Ctx } from './Admin'
+import MediaAdjuster from './MediaAdjuster'
+import ImageEditor from './editor/ImageEditor'
 const LG = ['hy', 'ru', 'en'] as const
 const blank = () => ({ id: uuid(), isNew: true, sku: '', category_id: '', price_amd: '', old_price_amd: '', discount_percent: '0', material: '', purity: '', weight_g: '',
   status: 'available', is_featured: false, is_new: false, is_active: true, sort_order: '0',
@@ -20,6 +22,7 @@ const num = (s: string) => (s.trim() === '' ? null : Number(s))
 export default function Products({ T, lang }: Ctx) {
   const [rows, setRows] = useState<any[]>([]); const [cats, setCats] = useState<any[]>([]); const [f, setF] = useState<any>(blank()); const [q, setQ] = useState('')
   const [msg, setMsg] = useState(''); const [busy, setBusy] = useState(false)
+  const [imageToEdit, setImageToEdit] = useState<File | null>(null); const [editQueue, setEditQueue] = useState<File[]>([])
   const load = useCallback(async () => {
     const [p, c] = await Promise.all([supabase.from('products').select('*,product_translations(lang,name,description),product_images(id,path,sort_order,is_main)').order('sort_order').order('created_at', { ascending: false }),
       supabase.from('categories').select('id,category_translations(lang,name)').order('sort_order')])
@@ -82,14 +85,18 @@ export default function Products({ T, lang }: Ctx) {
     setF((x: any) => ({ ...x, names, descs })); setMsg(fail ? MSG[lang].tr : ''); setBusy(false)
   }
   const addFiles = (files: FileList | null) => {
-    if (!files) return; let bad = false; const add: { file: File; url: string }[] = []
-    for (const file of Array.from(files)) {
-      if (!OK.includes(file.type) || file.size > MAX_MB * 1024 * 1024) { bad = true; continue }
-      if (f.images.length + f.pending.length + add.length >= MAX_IMAGES) break
-      add.push({ file, url: URL.createObjectURL(file) })      // preview only; never stored as a permanent reference
-    }
-    if (add.length) setF((x: any) => ({ ...x, pending: [...x.pending, ...add] }))
+    if (!files) return; let bad = false
+    const remaining = Math.max(0, MAX_IMAGES - f.images.length - f.pending.length)
+    const add = Array.from(files).filter(file => { const ok = OK.includes(file.type) && file.size <= MAX_MB * 1024 * 1024; if (!ok) bad = true; return ok }).slice(0, remaining)
+    if (add.length) { if (!imageToEdit) { setImageToEdit(add[0]); setEditQueue(q => [...q, ...add.slice(1)]) } else setEditQueue(q => [...q, ...add]) }
     setMsg(bad ? T('err_file') : '')
+  }
+  const nextEditedImage = () => { setImageToEdit(editQueue[0] ?? null); setEditQueue(q => q.slice(1)) }
+  const acceptEditedImage = (blob: Blob) => {
+    if (!imageToEdit) return
+    const file = new File([blob], `${imageToEdit.name.replace(/\.[^.]+$/, '')}-edited.webp`, { type: blob.type || 'image/webp' })
+    setF((x: any) => ({ ...x, pending: [...x.pending, { file, url: URL.createObjectURL(file) }] }))
+    nextEditedImage()
   }
   const swap = <A,>(arr: A[], i: number, d: number) => { const j = i + d; if (j < 0 || j >= arr.length) return arr; const n = [...arr]; [n[i], n[j]] = [n[j], n[i]]; return n }
   const toFront = <A,>(arr: A[], i: number) => [arr[i], ...arr.filter((_, k) => k !== i)]
@@ -138,11 +145,11 @@ export default function Products({ T, lang }: Ctx) {
         <label className="chk"><input type="checkbox" checked={f.is_active} onChange={e => set('is_active', e.target.checked)} />{T('active')}</label>
       </div>
       <div className="acts"><button className="btn-dark" disabled={busy} onClick={save}>{busy ? '…' : T('save')}</button>{!f.isNew && <button className="btn-light" onClick={reset}>{T('cancel')}</button>}<span role="status">{msg}</span></div>
-      <div className="imgs"><h4>{T('images')} ({f.images.length + f.pending.length})</h4>
+      <div className="imgs"><h4>{T('images')} ({f.images.length + f.pending.length})</h4><p className="muted product-image-order-hint">{lang === 'hy' ? '1-ին լուսանկար՝ զարդը սովորական ֆոնի վրա։ 2-րդ լուսանկար՝ նույն զարդը մարդու վրա։ Առաջին երկու լուսանկարների հերթականությունը փոխեք սլաքներով․ կայքում երկրորդը կերևա սահուն անցումով։' : lang === 'ru' ? '1-е фото — украшение на обычном фоне. 2-е фото — то же украшение на модели. Порядок первых двух фото задайте стрелками; на сайте второе будет появляться плавно.' : 'Photo 1: the jewelry on a plain background. Photo 2: the same jewelry worn by a model. Use the arrows to order the first two photos; the second appears with a smooth transition.'}</p>
         <div className="thumbrow">
           {f.images.map((im: any, i: number) => <figure key={im.id}><img src={publicUrl('product-images', im.path)} alt="" />
             <figcaption><button type="button" title="←" disabled={busy || i === 0} onClick={() => moveImg(i, -1)}>←</button><button type="button" title="→" disabled={busy || i === f.images.length - 1} onClick={() => moveImg(i, 1)}>→</button>
-              <button type="button" title={T('main')} disabled={busy} onClick={() => mainImg(i)}>{i === 0 ? '★' : '☆'}</button><button type="button" className="red" title={T('del')} disabled={busy} onClick={() => delImg(im)}>🗑︎</button></figcaption></figure>)}
+              <button type="button" title={T('main')} disabled={busy} onClick={() => mainImg(i)}>{i === 0 ? '★' : '☆'}</button><button type="button" className="red" title={T('del')} disabled={busy} onClick={() => delImg(im)}>🗑︎</button></figcaption><MediaAdjuster bucket="product-images" path={im.path} src={publicUrl('product-images', im.path)} kind="image" label={lang === 'hy' ? 'Ապրանքի նկար' : lang === 'ru' ? 'Фото товара' : 'Product photo'} aspect="4 / 5" /></figure>)}
           {f.pending.map((p: any, i: number) => <figure key={p.url} style={{ opacity: .85 }}><img src={p.url} alt="" style={{ outline: '2px dashed var(--steel)', outlineOffset: -2 }} />
             <figcaption><button type="button" title="←" disabled={busy || i === 0} onClick={() => movePending(i, -1)}>←</button><button type="button" title="→" disabled={busy || i === f.pending.length - 1} onClick={() => movePending(i, 1)}>→</button>
               <button type="button" title={T('main')} disabled={busy} onClick={() => frontPending(i)}>{f.images.length === 0 && i === 0 ? '★' : '☆'}</button><button type="button" className="red" title={T('del')} disabled={busy} onClick={() => dropPending(i)}>✕</button></figcaption></figure>)}
@@ -150,6 +157,7 @@ export default function Products({ T, lang }: Ctx) {
         <label className="drop">{T('upload')}<input type="file" multiple accept="image/jpeg,image/png,image/webp" disabled={busy} onChange={e => { addFiles(e.target.files); e.target.value = '' }} /></label>
         {f.pending.length > 0 && <small>{HINT[lang]}</small>}
       </div>
+      {imageToEdit && <ImageEditor lang={lang} source={imageToEdit} defaultRatio="4:5" onClose={nextEditedImage} onSave={async blob => acceptEditedImage(blob)} />}
     </section>
     <section className="glass box"><div className="bar"><h3>{T('list')}</h3><input type="search" placeholder={T('search')} value={q} onChange={e => setQ(e.target.value)} /></div>
       <div className="scrollx"><table><tbody>{shown.map(r => { const main = [...r.product_images].sort((a: any, b: any) => (b.is_main - a.is_main) || a.sort_order - b.sort_order)[0]; return <tr key={r.id}>

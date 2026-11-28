@@ -3,6 +3,7 @@ import { publicUrl, uploadImage } from '../../lib/auth'
 import { adminSupabase as supabase } from '../../lib/supabase'
 import { translate } from '../../lib/translate'
 import type { Ctx } from './Admin'
+import MediaAdjuster from './MediaAdjuster'
 const LG = ['hy', 'ru', 'en'] as const; const B = 'homepage-images'
 type Tr = { title: string; body: string; button: string }
 const tr0 = () => Object.fromEntries(LG.map(l => [l, { title: '', body: '', button: '' }])) as Record<string, Tr>
@@ -43,7 +44,7 @@ export default function HeroSlides({ T }: Ctx) {
         <label>{T('link')}<input value={f.link ?? ''} onChange={e => setF({ ...f, link: e.target.value })} placeholder="#collections" /></label>
         <label className="chk"><input type="checkbox" checked={f.is_active} onChange={e => setF({ ...f, is_active: e.target.checked })} />{T('active')}</label>
         <label className="wide">{T('image')}<input type="file" accept="image/jpeg,image/png,image/webp" onChange={e => { pick(e.target.files?.[0]); e.target.value = '' }} />
-          {f.image_path && <span className="slide-prev"><img src={publicUrl(B, f.image_path)} alt="" /><button type="button" className="red" onClick={unpick}>🗑︎ {T('rm_img')}</button></span>}</label>
+          {f.image_path && <><span className="slide-prev"><img src={publicUrl(B, f.image_path)} alt="" /><button type="button" className="red" onClick={unpick}>🗑︎ {T('rm_img')}</button></span><MediaAdjuster bucket={B} path={f.image_path} src={publicUrl(B, f.image_path)} kind="image" label="Գլխավոր սլայդ" aspect="16 / 9" /></>}</label>
       </div>
       <div className="acts"><button className="btn-dark" disabled={busy} onClick={save}>{busy ? '…' : T('save')}</button>{(f.id || f.image_path) && <button className="btn-light" onClick={cancel}>{T('cancel')}</button>}<span role="status">{msg}</span></div>
     </section>

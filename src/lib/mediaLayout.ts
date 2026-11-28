@@ -7,6 +7,8 @@ export type MediaLayout = {
   x: number
   y: number
   scale: number
+  /** Target display ratio selected in the admin editor, e.g. '16 / 9'. */
+  aspect?: string
 }
 export type MediaLayouts = Record<string, MediaLayout>
 export const DEFAULT_MEDIA_LAYOUT: MediaLayout = { fit: 'cover', x: 50, y: 50, scale: 100 }
@@ -14,8 +16,9 @@ export const mediaLayoutKey = (bucket: string, path: string) => `${bucket}:${pat
 export const mediaStyle = (layout?: MediaLayout): CSSProperties => ({
   objectFit: layout?.fit ?? 'cover',
   objectPosition: `${layout?.x ?? 50}% ${layout?.y ?? 50}%`,
+  '--media-scale': String((layout?.scale ?? 100) / 100),
   transform: `scale(${(layout?.scale ?? 100) / 100})`,
-})
+} as CSSProperties)
 
 export async function readMediaLayouts(): Promise<MediaLayouts> {
   const { data, error } = await supabase.from('site_settings').select('value').eq('key', 'media_layouts').maybeSingle()

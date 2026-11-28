@@ -1,15 +1,17 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
 import {
   BrowserRouter,
   Navigate,
   Route,
-  Routes,
   useParams
 } from 'react-router-dom'
 
-import { DEFAULT_LANG, isLang } from './i18n'
+import { DEFAULT_LANG, isLang } from '../supabase/functions/auto-translate'
 import { enforceRemember } from './lib/supabase'
+import { initMotion } from './lib/motion'
+import Splash from './components/Splash'
+import PageTransition from './components/PageTransition'
 
 import AuthPage from './pages/AuthPage'
 import Home from './pages/Home'
@@ -25,8 +27,13 @@ import { SiteConfigProvider } from './lib/siteConfig'
 import './styles/silver.css'
 import './styles/silver-pages.css'
 import './styles/silver-admin.css'
+import './styles/motion.css'
+import './styles/theme-noir.css'
+import './styles/mobile.css'
 
 enforceRemember()
+
+const MotionBoot = () => { useEffect(() => initMotion(), []); return null }
 
 const HomeGate = () => {
   const { lang, id } = useParams()
@@ -64,7 +71,9 @@ createRoot(document.getElementById('root')!).render(
       <FavoritesProvider>
         <SiteConfigProvider>
         <BrowserRouter>
-          <Routes>
+          <MotionBoot />
+          <Splash />
+          <PageTransition>
 
             <Route path="/" element={<Navigate to={`/${DEFAULT_LANG}`} replace />} />
 
@@ -85,7 +94,7 @@ createRoot(document.getElementById('root')!).render(
 
             <Route path="*" element={<Navigate to={`/${DEFAULT_LANG}`} replace />} />
 
-          </Routes>
+          </PageTransition>
         </BrowserRouter>
         </SiteConfigProvider>
       </FavoritesProvider>

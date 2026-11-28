@@ -1,0 +1,117 @@
+/* ANVA LUXURY — phone layout + floating glass dock. Everything here is inside max-width:820px except the dock base rule. */
+.dock{display:none}
+
+@media (max-width:820px){
+  html{scroll-padding-top:68px}
+  *{-webkit-tap-highlight-color:transparent}
+
+  /* ---------- clean premium mobile navigation (no floating glass pill) ---------- */
+  .dock{display:block;position:fixed;left:0;right:0;bottom:0;z-index:60;pointer-events:none;transition:opacity .25s,translate .25s}
+  body:has(.mdl-back) .dock{opacity:0;translate:0 16px}
+  .dock-track{pointer-events:auto;position:relative;display:flex;height:64px;width:100%;max-width:none;margin:0;padding:5px 8px calc(5px + env(safe-area-inset-bottom));border-radius:0;border:0;border-top:1px solid rgba(210,218,228,.18);background:rgba(8,12,18,.97);box-shadow:0 -8px 24px rgba(0,0,0,.22);backdrop-filter:none;-webkit-backdrop-filter:none;touch-action:pan-x;user-select:none;-webkit-user-select:none}
+  .dock-pill{display:none!important}
+  .dock-item{flex:1;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-width:0;padding:0 2px;border:0;background:transparent;color:#9ca3ad;font-size:10px;font-weight:600;letter-spacing:.015em;transition:color .2s}
+  .dock-item span{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .dock-item svg{width:20px;height:20px;transition:color .2s}
+  .dock-item.on,.dock-item.hot{color:#f1f3f6}
+  .dock-item.on::after{content:"";position:absolute;top:0;left:34%;right:34%;height:2px;border-radius:2px;background:#c6cbd2}
+  .dock-item.hot svg{translate:0 -1px}
+  .dock-item:focus-visible{outline:2px solid #c6cbd2;outline-offset:-3px}
+  @media (prefers-reduced-motion:no-preference){.mo-js .dock{animation:dock-in .5s ease-out .1s both}@keyframes dock-in{from{opacity:0;translate:0 12px}}}
+
+  /* the dock replaces the burger menu */
+  .burger,.menu{display:none!important}
+  .nav-in{grid-template-columns:1fr auto;padding:8px 14px;padding-top:max(8px,env(safe-area-inset-top))}
+  .brand{grid-column:1;justify-self:start}.nav-right{grid-column:2;gap:8px}
+  .brand img{height:min(var(--logo-h),36px)}
+  .ic-btn{width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14)}
+  .lg-sel{height:42px;padding:0 12px;font-size:13px;font-weight:600;background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.14)}
+
+  /* ---------- hero ---------- */
+  .hero{min-height:min(var(--hero-h),80svh);padding:24px 20px 38px;--hero-title:clamp(32px,9.6vw,44px);--hero-body:15.5px;--hero-pad:24px}
+  .hero-copy{gap:14px}
+  .hero-copy .btn-dark{min-height:54px;padding:0 30px;font-size:16px}
+
+  /* ---------- sections ---------- */
+  :root{--sec-gap:54px!important}
+  .sec-head h2{font-size:clamp(26px,7.6vw,34px)}
+  .sec-head p{font-size:14.5px}
+  .cats{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;margin:0 -16px;padding:4px 16px 16px;scrollbar-width:none;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch}
+  .cats::-webkit-scrollbar{display:none}
+  .cat{flex:0 0 74%;max-width:340px;scroll-snap-align:center}
+  .feat{--feat-pad:16px;padding:16px;border-radius:22px}
+  .feat .stage{min-height:300px}
+  .thumbs button{width:64px;height:64px;flex:none}
+  .banner{min-height:300px}
+
+  /* ---------- catalogue ---------- */
+  .pgrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .pcard-info{font-size:14px}
+  .tools>*{flex:1 1 100%}
+  .search,.sort select{height:48px}
+  .search input,.sort select,.acct input,.acct select,.field input,.foot form input{font-size:16px}
+  .btn-dark,.btn-light{min-height:50px}
+
+  /* ---------- product sheet ---------- */
+  .mdl-back{padding:0;align-items:flex-end}
+  .mdl{width:100%;max-height:92svh;border-radius:26px 26px 0 0;padding:10px 16px calc(24px + env(safe-area-inset-bottom))}
+  .mdl::before{content:"";grid-column:1/-1;display:block;width:44px;height:5px;border-radius:99px;background:rgba(255,255,255,.3);margin:0 auto 4px}
+  .mdl-x{top:14px;right:14px;width:40px;height:40px}
+
+  /* ---------- footer clears the dock ---------- */
+  .foot{padding-bottom:calc(112px + env(safe-area-inset-bottom))}
+  .foot-in{gap:24px}
+
+  /* Social icons: Instagram → TikTok → Facebook on one row */
+  .foot .soc{
+    display:flex;
+    flex-direction:row;
+    flex-wrap:nowrap;
+    align-items:center;
+    gap:10px;
+    width:max-content;
+    max-width:100%;
+    overflow-x:auto;
+    scrollbar-width:none;
+  }
+
+  .foot .soc::-webkit-scrollbar{display:none}
+
+  .foot .soc a{
+    display:inline-flex;
+    flex:0 0 42px;
+    width:42px;
+    min-width:42px;
+    height:42px;
+    padding:0;
+    align-items:center;
+    justify-content:center;
+  }
+}
+
+
+/* ANVA LIQUID GLASS — values controlled from Admin > Settings */
+:root { --anva-glass-alpha: .82; --anva-glass-blur: 16px; }
+
+@media (max-width: 820px) {
+  .nav, .mobile-dock, .cat-name, .feat .info, .modal, .product-modal, .foot-in > div, .foot-in > form {
+    -webkit-backdrop-filter: blur(var(--anva-glass-blur)) saturate(145%);
+    backdrop-filter: blur(var(--anva-glass-blur)) saturate(145%);
+  }
+
+  .nav { background: rgba(11,11,11,var(--anva-glass-alpha)) !important; border-bottom: 1px solid rgba(217,217,217,.22); }
+  .mobile-dock { background: rgba(26,26,26,var(--anva-glass-alpha)) !important; border: 1px solid rgba(217,217,217,.22); }
+  .cat-name { background: rgba(11,11,11,var(--anva-glass-alpha)) !important; }
+}
+
+:root[data-glass-surface="dark"] { --anva-glass-tint: 11,11,11; }
+:root:not([data-glass-surface="dark"]) { --anva-glass-tint: 255,255,255; }
+@media (max-width: 820px){
+
+  /* Mobile hero: clean full-bleed media only. No caption, text panel or dark rectangle. */
+  .hero.on-media .hero-copy{display:none!important}
+  .hero.on-media .hm-shade{background:transparent!important;opacity:0!important}
+  .hero.on-media .hero-media{z-index:0}
+  .hero.on-media .hm-arrow{z-index:5}
+  .hero.on-media .hm-dots{z-index:5}
+}

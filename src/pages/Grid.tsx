@@ -3,7 +3,8 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 import ProductModal from '../components/ProductModal'
 import { SiteFooter, SiteHeader } from '../components/SiteChrome'
 import { Heart, Search } from '../components/Icons'
-import { Lang } from '../i18n'
+import { ProductGridSkeleton } from '../components/Loaders'
+import { Lang } from '../../supabase/functions/auto-translate'
 import { h } from '../i18n/home'
 import { useMoney } from '../lib/currency'
 import { useFavs } from '../lib/favorites'
@@ -12,15 +13,16 @@ import { effective, usePromos } from '../lib/pricing'
 import { setSeo } from '../lib/seo'
 import { supabase } from '../lib/supabase'
 import { track } from '../lib/track'
+import { useMediaLayouts, mediaStyle } from '../lib/mediaLayout'
 
 type Tr = { lang: Lang; name: string }
 type Row = { id: string; sort_order: number | null; is_new: boolean; price_amd: number; product_translations: Tr[]; product_images: { path: string; sort_order: number; is_main: boolean }[] } & Record<string, unknown>
 type Sort = 'featured' | 'price-asc' | 'price-desc' | 'name'
 
 export default function Grid({ lang, mode }: { lang: Lang; mode: 'category' | 'favorites' }) {
-  const { slug, id } = useParams(); const nav = useNavigate(); const { fmt, suggest } = useMoney(); const fav = useFavs(); const promos = usePromos(); const contact = useContact()
+  const { slug, id } = useParams(); const nav = useNavigate(); const { fmt, suggest } = useMoney(); const fav = useFavs(); const promos = usePromos(); const contact = useContact(); const media = useMediaLayouts()
   const [rows, setRows] = useState<Row[]>([]); const [title, setTitle] = useState(''); const [loading, setLoading] = useState(true)
-  const [query, setQuery] = useState(''); const [sort, setSort] = useState<Sort>('featured')
+  const [query, setQuery] = useState(''); const [sort, setSort] = useState<Sort>('featured'); const [touchSecond, setTouchSecond] = useState<Record<string, boolean>>({})
   useEffect(() => { suggest(lang); document.documentElement.lang = lang }, [lang]) // eslint-disable-line
 
   useEffect(() => { void (async () => {
@@ -60,12 +62,16 @@ export default function Grid({ lang, mode }: { lang: Lang; mode: 'category' | 'f
           <option value="price-desc">{t3(lang, 'Գին՝ բարձրից ցածր', 'Сначала дороже', 'Price: high to low')}</option>
           <option value="name">{t3(lang, 'Անվանում', 'По названию', 'Name')}</option></select></label>
       </div>
-      {loading ? <p className="empty">…</p> : <div className="pgrid">{visible.map(r => {
-        const m = [...r.product_images].sort((a, b) => Number(b.is_main) - Number(a.is_main) || a.sort_order - b.sort_order)[0]
+      {loading ? <ProductGridSkeleton /> : <div className="pgrid">{visible.map(r => {
+        const pics = [...r.product_images].sort((a, b) => Number(b.is_main) - Number(a.is_main) || a.sort_order - b.sort_order)
+        const first = pics[0], second = pics[1]
+        const firstLayout = first ? media.get('product-images', first.path) : undefined
         const price = effective(r, promos)
         return <article key={r.id} className="pcard">
-          <Link to={`${base}/p/${r.id}`} className="pcard-img" aria-label={name(r)}>
-            {m ? <img src={storageUrl('product-images', m.path)} alt={name(r)} loading="lazy" /> : <span className="no-img">ANVA</span>}
+          <Link to={`${base}/p/${r.id}`} className={`pcard-img${touchSecond[r.id] ? ' touch-second' : ''}${second ? ' has-second' : ''}`} style={firstLayout?.aspect ? { aspectRatio: firstLayout.aspect } : undefined} aria-label={name(r)} onClick={ev => {
+            if (second && window.matchMedia('(hover: none), (pointer: coarse)').matches && !touchSecond[r.id]) { ev.preventDefault(); setTouchSecond(v => ({ ...v, [r.id]: true })) }
+          }}>
+            {first ? <><img className="pcard-photo primary" src={storageUrl('product-images', first.path)} alt={name(r)} loading="lazy" style={mediaStyle(media.get('product-images', first.path))} />{second && <img className="pcard-photo secondary" src={storageUrl('product-images', second.path)} alt={`${name(r)} — ${t3(lang, 'զարդը մարդու վրա', 'на модели', 'worn view')}`} loading="lazy" style={mediaStyle(media.get('product-images', second.path))} />}</> : <span className="no-img">ANVA</span>}
             {r.is_new && <span className="pcard-new">{h(lang, 'new')}</span>}
           </Link>
           <button className={`pcard-heart ${fav.has(r.id) ? 'on' : ''}`} onClick={() => fav.toggle(r.id)} aria-label={h(lang, 'favorites')} aria-pressed={fav.has(r.id)}><Heart size={18} filled={fav.has(r.id)} /></button>

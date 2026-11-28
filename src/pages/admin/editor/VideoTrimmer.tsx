@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import type { Lang } from '../../../i18n'
+import type { Lang } from '../../../../supabase/functions/auto-translate'
 import { E } from '../../../i18n/editor'
 import { MAX_HERO, fmtTime, uploadBlob } from '../../../lib/media'
 

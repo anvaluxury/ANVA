@@ -25,21 +25,15 @@ function Sparkles() {
   return <canvas ref={ref} className="hs-sparks" aria-hidden />
 }
 
-export default function HeroSlider({ slides, logo }: { slides: HeroSlide[]; logo: string }) {
+export default function HeroSlider({ slides }: { slides: HeroSlide[]; logo: string }) {
   const [i, setI] = useState(0); const [hold, setHold] = useState(false); const x0 = useRef(0); const n = slides.length
   const go = (d: number) => setI(v => (v + d + n) % n)
   useEffect(() => { if (n < 2 || hold) return; const t = setInterval(() => setI(v => (v + 1) % n), 6500); return () => clearInterval(t) }, [n, hold, i])
-  const s = slides[Math.min(i, n - 1)]
   return (
     <section className="hslider" id="top" onMouseEnter={() => setHold(true)} onMouseLeave={() => setHold(false)}
       onTouchStart={e => { x0.current = e.touches[0].clientX }} onTouchEnd={e => { const d = e.changedTouches[0].clientX - x0.current; if (Math.abs(d) > 50) go(d < 0 ? 1 : -1) }}>
       {slides.map((sl, k) => <div key={sl.id} className={`hs-bg${k === i ? ' on' : ''}`} aria-hidden>{sl.image && <img src={sl.image} alt="" loading={k === 0 ? 'eager' : 'lazy'} />}</div>)}
-      <div className="hs-shade" /><Sparkles />
-      <div className="hs-copy" key={s.id}>
-        <img className="hs-logo" src={logo} alt="ANVA LUXURY" />
-        {s.title && <h1>{s.title}</h1>}{s.body && <p>{s.body}</p>}
-        {s.button && <a className="btn-dark" href={s.link || '#collections'}>{s.button} →</a>}
-      </div>
+      <div className="hs-shade" aria-hidden="true" />
       {n > 1 && <>
         <button className="hs-ar l" aria-label="Previous" onClick={() => go(-1)}>‹</button>
         <button className="hs-ar r" aria-label="Next" onClick={() => go(1)}>›</button>

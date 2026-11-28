@@ -92,3 +92,205 @@ table{width:100%;border-collapse:collapse;font-size:14px}th,td{text-align:left;p
   .ed{height:auto}.ed-body{grid-template-columns:1fr}.ed-stage{height:68svh;min-height:420px}.ed-panel{max-height:none;overflow:visible}.ed-actions{margin-left:0}
   table{font-size:13px}th,td{padding:8px}
 }
+
+/* ANVA interactive toggle — inspired by the supplied Toggle Styles reference.
+   Squishy motion + liquid blue fill, adapted to the Silver Edition palette. */
+.switch{gap:11px!important;min-height:30px;user-select:none;-webkit-tap-highlight-color:transparent}
+.switch i{width:48px;height:27px;flex:0 0 48px;border:1px solid #b9c0ca;background:linear-gradient(180deg,#e4e7ec,#cbd1da);box-shadow:inset 0 2px 4px rgba(25,31,40,.12),0 1px 1px rgba(255,255,255,.9);transition:background .28s ease,border-color .28s ease,box-shadow .28s ease;overflow:hidden}
+.switch i::after{left:3px;top:3px;width:19px;height:19px;background:linear-gradient(145deg,#fff,#e7ebf1);box-shadow:0 2px 5px rgba(19,27,38,.24),inset 0 1px 1px #fff;transition:transform .42s cubic-bezier(.2,1.55,.45,1),width .22s ease}
+.switch input:checked+i{background:linear-gradient(135deg,#a9dcf5,#62bce9 55%,#3999d0);border-color:#69bce8;box-shadow:inset 0 2px 5px rgba(13,82,124,.2),0 0 0 3px rgba(91,183,232,.12)}
+.switch input:checked+i::after{left:3px;transform:translateX(21px);background:linear-gradient(145deg,#fff,#eaf8ff);box-shadow:0 2px 6px rgba(13,72,108,.3),inset 0 1px 1px #fff}
+.switch:active i::after{width:23px}.switch:active input:checked+i::after{transform:translateX(17px);width:23px}
+.switch input:focus-visible+i{outline:3px solid rgba(69,164,215,.45);outline-offset:3px}
+.switch input:disabled+i{opacity:.48;cursor:not-allowed}
+/* Matching tactile checkbox treatment across admin forms. */
+.adm .chk input[type=checkbox],.adm .check input[type=checkbox]{accent-color:#4aa9dc;cursor:pointer;inline-size:17px;block-size:17px;transition:transform .18s ease,filter .18s ease}
+.adm .chk input[type=checkbox]:active,.adm .check input[type=checkbox]:active{transform:scale(.86)}
+@media(prefers-reduced-motion:reduce){.switch i,.switch i::after,.adm .chk input[type=checkbox],.adm .check input[type=checkbox]{transition:none!important}}
+
+/* =========================================================
+   ANVA ADMIN — HIGH-CONTRAST MONOCHROME OVERRIDES
+   Palette: #0B0B0B / #1A1A1A / #333333 / #6B6B6B / #D9D9D9 / #FFFFFF
+   Keeps existing admin markup, behavior and Supabase integration intact.
+   ========================================================= */
+.adm,
+.adm-wait {
+  --adm-black: #0B0B0B;
+  --adm-dark: #1A1A1A;
+  --adm-panel: #333333;
+  --adm-mid: #6B6B6B;
+  --adm-light: #D9D9D9;
+  --adm-white: #FFFFFF;
+  background: var(--adm-black) !important;
+  color: var(--adm-white) !important;
+}
+.adm { color-scheme: dark; }
+.adm-wait { color: var(--adm-light) !important; }
+
+/* Sidebar and navigation */
+.adm-side,
+.adm-editing .adm-side {
+  background: #0B0B0B !important;
+  color: #FFFFFF !important;
+  border-right: 1px solid #333333;
+}
+.adm-side nav a { color: #D9D9D9 !important; }
+.adm-side nav a:hover,
+.adm-side nav a:focus-visible { background: #333333 !important; color: #FFFFFF !important; }
+.adm-side nav a.on {
+  background: #D9D9D9 !important;
+  color: #0B0B0B !important;
+  box-shadow: 0 0 0 1px #FFFFFF inset;
+}
+.adm-side .me { background: #1A1A1A !important; border: 1px solid #333333; color: #FFFFFF !important; }
+.adm-side .me small { color: #D9D9D9 !important; }
+.adm-side .out { color: #FFFFFF !important; border-color: #6B6B6B !important; }
+.adm-side .out:hover { background: #333333 !important; }
+
+/* Main area, cards, panels and headings */
+.adm-main { background: #0B0B0B !important; color: #FFFFFF !important; }
+.adm-main > header { color: #D9D9D9 !important; }
+.adm-main > header a { color: #FFFFFF !important; background: #1A1A1A !important; border-color: #6B6B6B !important; }
+.adm h1, .adm h2, .adm h3, .adm h4, .adm h5,
+.adm strong, .adm b { color: #FFFFFF !important; }
+.adm .glass, .adm .box,
+.adm .ed-bar, .adm .ed-panel,
+.adm .ed-group fieldset, .adm .ver li,
+.adm .hmp, .adm .hmp-list li {
+  color: #FFFFFF !important;
+  background: #1A1A1A !important;
+  border: 1px solid #6B6B6B !important;
+  box-shadow: 0 8px 24px rgba(0,0,0,.28) !important;
+}
+.adm .muted, .adm .ed-hint, .adm .ed-dev,
+.adm .ed-group h4, .adm .ed-group legend,
+.adm .ctl-range output, .adm .mf-label,
+.adm .adm-main > header { color: #D9D9D9 !important; }
+.adm .ed-dev, .adm .ie-res { background: #333333 !important; color: #FFFFFF !important; }
+
+/* Form labels and controls */
+.adm label, .adm .ctl-top label, .adm .mf-label { color: #FFFFFF !important; }
+.adm input:not([type=checkbox]):not([type=range]):not([type=color]),
+.adm select, .adm textarea,
+.adm .modal input:not([type=checkbox]):not([type=range]):not([type=color]),
+.adm .modal select, .adm .modal textarea {
+  color: #FFFFFF !important;
+  background: #333333 !important;
+  border: 1px solid #6B6B6B !important;
+  caret-color: #FFFFFF;
+}
+.adm input::placeholder, .adm textarea::placeholder { color: #D9D9D9 !important; opacity: .78; }
+.adm input:focus, .adm select:focus, .adm textarea:focus {
+  border-color: #D9D9D9 !important;
+  box-shadow: 0 0 0 3px rgba(217,217,217,.18) !important;
+  outline: none !important;
+}
+.adm input[type=checkbox], .adm input[type=radio] { accent-color: #D9D9D9 !important; }
+.adm input[type=range] { accent-color: #D9D9D9 !important; }
+.adm input[type=color] { background: #333333 !important; border: 1px solid #6B6B6B !important; }
+
+/* Buttons, tabs and segmented controls */
+.adm button:not(.switch), .adm .seg,
+.adm .ed-secs button {
+  border-color: #6B6B6B;
+}
+.adm .btn-light, .adm .btn-dark,
+.adm button.btn-light, .adm button.btn-dark {
+  color: #FFFFFF !important;
+  background: #333333 !important;
+  border: 1px solid #6B6B6B !important;
+}
+.adm .btn-light:hover, .adm .btn-dark:hover,
+.adm button.btn-light:hover, .adm button.btn-dark:hover {
+  background: #6B6B6B !important;
+  color: #FFFFFF !important;
+}
+.adm .seg { background: #0B0B0B !important; }
+.adm .seg button { color: #D9D9D9 !important; }
+.adm .seg .on { background: #D9D9D9 !important; color: #0B0B0B !important; }
+.adm .ed-secs button { background: #333333 !important; color: #D9D9D9 !important; }
+.adm .ed-secs button.on { background: #D9D9D9 !important; color: #0B0B0B !important; border-color: #D9D9D9 !important; }
+.adm .danger, .adm .red { color: #FFFFFF !important; border-color: #6B6B6B !important; }
+.adm .danger:hover { background: #6B6B6B !important; }
+
+/* Tables and data lists */
+.adm table { color: #FFFFFF !important; background: #1A1A1A !important; }
+.adm th { color: #FFFFFF !important; background: #333333 !important; }
+.adm td { color: #D9D9D9 !important; }
+.adm th, .adm td { border-bottom: 1px solid #6B6B6B !important; }
+.adm tbody tr:hover { background: #333333 !important; }
+.adm .mini, .adm .thumbrow img { border-color: #6B6B6B !important; background: #333333 !important; }
+.adm .mf-thumb { background: #333333 !important; color: #D9D9D9 !important; border-color: #6B6B6B !important; }
+.adm .hmp-list li { background: #333333 !important; }
+
+/* Status messages, badges and charts */
+.adm .msg, .adm .ed-status { background: #333333 !important; color: #FFFFFF !important; border: 1px solid #6B6B6B !important; }
+.adm .msg.error, .adm .msg.ok,
+.adm .ed-status.warn, .adm .ed-status.ok, .adm .ed-status.draft { background: #333333 !important; color: #FFFFFF !important; }
+.adm .bar i { background: #D9D9D9 !important; }
+.adm .vt-bar { background: #333333 !important; }
+.adm .vt-bar i, .adm .vt-prog div { background: #6B6B6B !important; }
+.adm .vt-prog { background: #333333 !important; color: #FFFFFF !important; }
+.adm .checks li, .adm .checks li.ok { color: #D9D9D9 !important; }
+
+/* Modals are intentionally opaque so page backgrounds never reduce readability. */
+.adm .modal, .modal {
+  background: #1A1A1A !important;
+  color: #FFFFFF !important;
+  border: 1px solid #6B6B6B !important;
+  backdrop-filter: none !important;
+}
+.adm .modal header, .adm .modal footer,
+.modal header, .modal footer {
+  background: #1A1A1A !important;
+  color: #FFFFFF !important;
+  border-color: #6B6B6B !important;
+}
+.adm .modal header h3, .adm .modal p,
+.adm .modal label, .modal header h3, .modal p, .modal label { color: #FFFFFF !important; }
+.adm .modal .x, .modal .x { background: #333333 !important; color: #FFFFFF !important; border-color: #6B6B6B !important; }
+.adm .modal-back, .modal-back { background: rgba(0,0,0,.86) !important; backdrop-filter: none !important; }
+.adm .ie-stage, .adm .ed-stage {
+  background: #0B0B0B !important;
+  border-color: #6B6B6B !important;
+}
+.adm .ed-frame { background: #FFFFFF !important; }
+.adm .ed-frame iframe { background: #FFFFFF !important; }
+.adm .ed-stage.mobile .ed-frame { border-color: #333333 !important; }
+
+/* Neutral monochrome switches — remove former blue accent. */
+.adm .switch i { background: #333333 !important; border-color: #6B6B6B !important; box-shadow: inset 0 2px 4px rgba(0,0,0,.35) !important; }
+.adm .switch i::after { background: #D9D9D9 !important; }
+.adm .switch input:checked + i { background: #6B6B6B !important; border-color: #D9D9D9 !important; box-shadow: 0 0 0 2px rgba(217,217,217,.12) !important; }
+.adm .switch input:checked + i::after { background: #FFFFFF !important; }
+.adm .switch input:focus-visible + i { outline-color: #D9D9D9 !important; }
+.adm .chk input[type=checkbox], .adm .check input[type=checkbox] { accent-color: #D9D9D9 !important; }
+
+/* Avoid decorative blur/transparent layers behind admin content. */
+.adm .glass, .adm .box, .adm .ed-panel, .adm .ed-bar,
+.adm .modal, .adm .modal header, .adm .modal footer {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  opacity: 1;
+}
+@media (max-width: 860px) {
+  .adm-side, .adm-editing .adm-side { background: #0B0B0B !important; }
+  .adm-main { background: #0B0B0B !important; }
+}
+
+/* Responsive image/video editor controls: keep actions separated on narrow screens. */
+.modal header { flex-wrap: nowrap; }
+.modal header .x { flex: 0 0 36px; margin-left: auto; }
+.modal footer { display:flex; flex-wrap:wrap; gap:10px; }
+.modal footer button { flex:0 1 auto; min-width:112px; }
+@media (max-width:600px) {
+  .modal-back { padding:8px; place-items:center; }
+  .modal { max-height:calc(100svh - 16px); border-radius:14px; }
+  .modal header,.modal footer { padding:12px 14px; }
+  .ie-body { grid-template-columns:minmax(0,1fr); gap:12px; padding:12px 14px; }
+  .ie-stage { padding:8px; overflow:hidden; }
+  .ie-tools { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .ie-tools > label:first-child,.ie-tools > .two,.ie-tools > .ie-res,.ie-tools > .muted { grid-column:1 / -1; }
+  .modal footer { justify-content:stretch; }
+  .modal footer button { flex:1 1 0; min-width:0; min-height:42px; }
+}

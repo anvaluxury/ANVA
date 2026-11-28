@@ -1,0 +1,14 @@
+ANVA update notes
+
+1) Mobile homepage hero:
+- On screens up to 820px, hero heading, description, CTA and their dark rectangular panel are hidden.
+- The hero image/video remains full-bleed; slide arrows/dots remain available.
+- The mobile hero dark overlay is removed so the media is not dimmed by the text panel styling.
+
+2) Saved media adjustments now affect public display:
+- Product image layouts are applied on category/favorites product cards, featured product images and thumbnails, and the product detail modal.
+- Category image layouts are applied on homepage category tiles.
+- Hero slide image/video layouts are applied on homepage hero media.
+- Settings continue to be read from site_settings key `media_layouts`; no database schema change or migration is included.
+
+Note: The media adjuster controls fit mode, crop position and scale in the website display container. It does not rewrite the original uploaded image file dimensions. The target aspect ratio shown in the preview is a preview frame; actual display aspect ratio is determined by the corresponding website container.

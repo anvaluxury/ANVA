@@ -1,0 +1,24 @@
+ANVA LUXURY — Homepage copy + mobile hero video update
+
+What changed:
+- Added professional Armenian default copy for the homepage Hero and Banner sections in the admin Homepage editor.
+- Added carefully written Russian and English versions for these supplied default texts; they do not go through machine translation.
+- Custom Armenian text now uses the existing browser translation helper and no longer calls the auto-translate Edge Function.
+- Updated the homepage collections/featured section headings to more natural brand language.
+- Updated the mobile hero layout: the video remains the main visible area, while the text sits in a compact translucent glass panel at the bottom. Long descriptions are clamped so they cannot cover the video.
+- Fixed app-level Lang imports in home.ts and siteConfig.tsx to use the app i18n module.
+
+How to test on Windows:
+1. Extract this ZIP.
+2. Open the anva folder in VS Code.
+3. In the terminal run: npm.cmd install
+4. Then run: npm.cmd run dev
+5. Open Admin > Homepage. Hero and Banner Armenian text fields will be prefilled if those fields were empty.
+6. Press Save. Supabase must allow the signed-in admin to update homepage_sections and homepage_translations.
+
+Important:
+- No database records are automatically changed by extracting this ZIP.
+- The save operation no longer invokes the auto-translate Edge Function. Custom text translation still needs an internet connection.
+- If Supabase reports an RLS/permission error, that is a database policy issue and must be fixed in Supabase; this code change cannot bypass RLS.
+- The production build could not be verified in this environment because the dependency installation did not finish. Run npm.cmd install and npm.cmd run build on Windows to verify locally.
+- Keep your existing .env.local values; do not publish them in a public repository.

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { Dots } from '../../components/Loaders'
 import {
   Link,
   Navigate,
@@ -7,7 +8,7 @@ import {
 } from 'react-router-dom'
 
 import { assets } from '../../assets'
-import { Lang } from '../../i18n'
+import { Lang } from '../../../supabase/functions/auto-translate'
 import { a, AKey } from '../../i18n/admin'
 import { useAdminSession } from '../../lib/auth'
 import { adminSupabase } from '../../lib/supabase'
@@ -124,7 +125,7 @@ export default function Admin({ lang }: { lang: Lang }) {
   }, [mfa, s.isAdmin])
 
   if (s.loading) {
-    return <div className="adm-wait">…</div>
+    return <div className="adm-wait"><Dots /></div>
   }
 
   if (!s.user) {
@@ -137,7 +138,7 @@ export default function Admin({ lang }: { lang: Lang }) {
   }
 
   if (mfa === 'checking') {
-    return <div className="adm-wait">…</div>
+    return <div className="adm-wait"><Dots /></div>
   }
 
   if (mfa === 'need') {

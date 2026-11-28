@@ -63,7 +63,7 @@ html[data-c-header-phone="0"] .nav-phone{display:none}
 /* ---------- hero ---------- */
 .hero{position:relative;min-height:var(--hero-h);display:flex;padding:var(--hero-pad);overflow:hidden;isolation:isolate;background:#2c2f35}
 .hero-media{position:absolute;inset:0;z-index:-1;overflow:hidden}
-.hero-media .hm-slide,.hero-fallback{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:var(--hero-fx) var(--hero-fy);transform:scale(var(--hero-zoom));opacity:0;transition:opacity .9s var(--ease)}
+.hero-media .hm-slide,.hero-fallback{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:var(--hero-fx) var(--hero-fy);transform:scale(calc(var(--hero-zoom) * var(--media-scale,1)));opacity:0;transition:opacity .9s var(--ease)}
 .hero-media .hm-slide.on{opacity:1}
 .hero-fallback{opacity:1;background:radial-gradient(120% 90% at 78% 20%,#767c86 0%,#4a4f58 45%,#2a2d33 100%)}
 .hero-fallback::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.16) 50%,transparent 65%);transform:translateX(-60%);animation:sheen 7s var(--ease) infinite}

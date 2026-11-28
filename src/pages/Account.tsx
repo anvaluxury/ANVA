@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useState } from 'react'
+import { Dots } from '../components/Loaders'
 import { Link, Navigate, useNavigate } from 'react-router-dom'
 import { SiteFooter, SiteHeader } from '../components/SiteChrome'
-import { Lang, LANGS } from '../i18n'
+import { Lang, LANGS } from '../../supabase/functions/auto-translate'
 import { a } from '../i18n/admin'
 import { useSession } from '../lib/auth'
 import { COUNTRIES } from '../lib/currency'
@@ -41,7 +42,7 @@ export default function Account({ lang }: { lang: Lang }) {
   useEffect(() => setSeo({ title: `ANVA — ${a(lang, 'profile')}`, lang, noindex: true }), [lang])
   const initials = useMemo(() => { const parts = p.full_name.trim().split(/\s+/).filter(Boolean); return (parts.length ? `${parts[0][0] ?? ''}${parts[1]?.[0] ?? ''}` : (s.user?.email?.[0] ?? 'A')).toUpperCase() }, [p.full_name, s.user?.email])
 
-  if (s.loading) return <div className="adm-wait" aria-label="Loading">…</div>
+  if (s.loading) return <div className="adm-wait" aria-label="Loading"><Dots /></div>
   if (!s.user && !preview) return <Navigate to={`/${lang}/login`} replace />
 
   const save = async () => {

@@ -1,4 +1,4 @@
-import type { Lang } from '../i18n'
+import type { Lang } from '../../supabase/functions/auto-translate'
 export const SITE = ((import.meta.env.VITE_SITE_URL as string | undefined) ?? location.origin).replace(/\/$/, '')
 export const abs = (u: string) => (u.startsWith('http') ? u : SITE + u)
 const LANGS = ['hy', 'ru', 'en']; const LOC: Record<string, string> = { hy: 'hy_AM', ru: 'ru_RU', en: 'en_US' }

@@ -1,4 +1,4 @@
-import type { Lang } from './index'
+import type { Lang } from '../../supabase/functions/auto-translate/index'
 
 // [hy, ru, en]
 const D = {

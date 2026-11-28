@@ -1,7 +1,7 @@
 import { FormEvent, useEffect, useState } from 'react'
 import { Link, Navigate, useNavigate } from 'react-router-dom'
 import { assets } from '../../assets'
-import { Lang } from '../../i18n'
+import { Lang } from '../../../supabase/functions/auto-translate'
 import { useAdminSession } from '../../lib/auth'
 import {
   adminSupabase,

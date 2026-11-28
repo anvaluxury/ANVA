@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Lang } from '../i18n'
+import { Lang } from '../../supabase/functions/auto-translate'
 import { a } from '../i18n/admin'
 import { useSession } from '../lib/auth'
 import { supabase } from '../lib/supabase'
